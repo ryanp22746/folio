@@ -41,3 +41,8 @@ This checks JavaScript syntax. It is not a complete automated UI test suite.
 ## Assets
 
 See `ASSET-NOTES.txt` for rating-icon attribution. Abstract cover artwork is included in the frontend. Local hosting metadata, personal environment files, and generated preview screenshots are excluded from Git.
+
+## Live metadata (integration branch)
+Copy `.env.example` to `.env`. Set `METADATA_API_BASE_URL` to the running API (locally http://127.0.0.1:8000) and `METADATA_API_KEY` to the same service secret configured there. Use Node 20.6+ and run `node --env-file=.env server.cjs`, then open http://127.0.0.1:5174/#search. The Live metadata panel searches providers and adds selected entries to this browser's library. API/provider credentials must never be put in dist/ files.
+
+Run `node test-proxy.cjs` and `node test-identity.cjs` for integration unit checks. This remains a local single-user prototype, bound to loopback. Before public hosting, add user authentication, per-user storage and proxy rate limits. Browser localStorage is not a shared database; duplicate prevention is currently per browser/library, and concurrent-tab imports are not transactional. Existing imported/manual entries lacking provider IDs can only receive title-match warnings. Export your library before testing imports.

@@ -7,3 +7,5 @@ node_modules/
 settings-preview.png
 .DS_Store
 Thumbs.db
+
+.env
