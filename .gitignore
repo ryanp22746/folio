@@ -9,3 +9,6 @@ settings-preview.png
 Thumbs.db
 
 .env
+
+# Local visual QA captures
+/*-preview.png

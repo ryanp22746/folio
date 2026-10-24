@@ -1,4 +1,4 @@
-const allowed = /^\/v1\/(providers|search|items\/(tmdb|vndb|anilist|mangaupdates|igdb|musicbrainz)\/(movie|tv|anime|manga|game|album|track|visual_novel)\/[a-zA-Z0-9-]+)$/;
+const allowed = /^\/v1\/(providers|search|items\/(tmdb|vndb|anilist|mangaupdates|igdb|musicbrainz|apple)\/(movie|tv|anime|manga|game|album|track|visual_novel)\/[a-zA-Z0-9-]+)$/;
 module.exports = async function metadataProxy(req,res) {
   const incoming = new URL(req.url,'http://localhost');
   if (!incoming.pathname.startsWith('/api/metadata/')) return false;
