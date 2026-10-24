@@ -1,0 +1,10 @@
+{
+  "name": "folio-media-library",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A personal media library prototype for movies, shows, games, music, visual novels, and books.",
+  "scripts": {
+    "start": "node server.cjs",
+    "check": "node --check server.cjs && node --check dist/app.js"
+  }
+}
