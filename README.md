@@ -75,3 +75,8 @@ Theme styling is centralized in `dist/themes.css`: palette definitions own liter
 Progress controls use a dedicated responsive grid with aligned inputs/actions and explicit label/section spacing. Favorite-state hearts are no longer drawn inside cover portraits.
 
 Settings → Motion offers Follow device, Play animations, and Reduce motion. Explicit app choices override the device preference for Folio only; decorative effects remain suppressed in Reduced mode.
+
+
+Library entries imported from providers share Search's source ratings, Steam review summaries, facts and attributed links. Opening an entry refreshes its metadata (five-minute browser freshness window); Refresh details retries explicitly. Cached details remain visible offline, and transient enrichment failures retain the last successful score. Refreshing never changes personal titles, ratings, favorites, notes, collections or progress. Older custom/sample entries offer Find live metadata & artwork: review a search result and explicitly connect it; titles alone never establish identity.
+
+Search and Library use a shared themed artwork header. TMDB provides English/neutral PNG logos and backdrops; IGDB supplies transparent PNG logos plus artwork/screenshots; VNDB supplies only screenshots rated safe for both sexual and violent content. Artwork coverage varies, especially for music and manga. Missing/broken logos retain the accessible text heading; missing/broken backdrops use theme gradients. User-selected library artwork takes precedence, and renamed titles keep the text heading. Run the package check/test scripts, including test-metadata.cjs for library refresh/personal-field preservation and artwork fallbacks.

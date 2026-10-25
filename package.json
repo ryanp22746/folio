@@ -6,6 +6,6 @@
   "scripts": {
     "start": "node server.cjs",
     "check": "node --check server.cjs && node --check metadata-proxy.cjs && node --check dist/app.js && node --check dist/metadata.js && node --check dist/identity.js && node --check dist/search-ranking.js && node --check dist/interactions.js",
-    "test": "node test-identity.cjs && node test-search.cjs && node test-proxy.cjs"
+    "test": "node test-identity.cjs && node test-search.cjs && node test-proxy.cjs && node test-metadata.cjs"
   }
 }

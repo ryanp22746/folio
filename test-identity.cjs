@@ -24,3 +24,12 @@ assert.equal(versions[0].version_options[0].id,'clean');
 assert.equal(identity.same(versions[0],clean),false);
 assert.equal(identity.editions([primary,{...clean,release_date:'2020-05-15'}]).length,2);
 assert.equal(identity.editions([primary,{...clean,creators:['Other artist']}]).length,2);
+
+// A transient enrichment failure keeps the last successful source summary.
+const cached=record('game','igdb',{igdb:'1'},{kind:'game',enrichments:[{source:{provider:'steam',id:'400'},reviews:{total:100,positive_percent:99}}]});
+const outage={...cached,enrichments:[],enrichment_status:[{provider:'steam',status:'unavailable'}]};
+assert.equal(identity.refresh(cached,outage).enrichments[0].reviews.total,100);
+assert.equal(identity.refresh(cached,{...outage,enrichment_status:[{provider:'steam',status:'not_found'}]}).enrichments.length,0);
+assert.throws(()=>identity.refresh(cached,{...cached,external_ids:{igdb:'2'}}),/identity changed/);
+const updated={...cached,enrichments:[{source:{provider:'steam',id:'400'},reviews:{total:200}}]};
+assert.equal(identity.refresh(cached,updated).enrichments[0].reviews.total,200);
