@@ -1,0 +1,17 @@
+const assert=require('node:assert/strict');
+const {key,update,progress,eligible}=require('./dist/collection-progress.js');
+const a={id:'tmdb:movie:1'},b={id:'tmdb:movie:2'};
+assert(eligible({format:'Collection',kind:'movie',source:{id:'collection-9'}}));
+assert(eligible({format:'Collection',kind:'game',source:{id:'collection-9'}}));
+assert(!eligible({kind:'movie',source:{id:'1'}}));
+let state=update(null,'tmdb:collection-9',[a,b],[key(a)],true,false);
+assert.deepEqual(progress(state,'tmdb:collection-9'),{completed:1,total:2});
+state=update(state,'tmdb:collection-9',[a,b],[key(a),key(b)],true,false);
+assert.deepEqual(progress(state,'tmdb:collection-9'),{completed:2,total:2});
+state=update(state,'tmdb:collection-9',[a,b],[key(a)],false,false);
+assert.deepEqual(progress(state,'tmdb:collection-9'),{completed:1,total:2});
+assert.deepEqual(progress(state,'igdb:collection-9'),{completed:0,total:null});
+const partial=update(state,'tmdb:collection-9',[a],[key(a)],true,true);
+assert.deepEqual(progress(partial,'tmdb:collection-9'),{completed:2,total:2});
+assert.deepEqual(progress(state,'tmdb:collection-9'),{completed:1,total:2});
+console.log('Collection progress: movie/game parent scope, identity isolation, pagination, undo and immutable state passed');

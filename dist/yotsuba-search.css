@@ -1,0 +1,75 @@
+/* Discovery is a live catalog, separate from the saved-library catalog. */
+.classic-search-heading,.classic-search-tools,.classic-result-index{display:none}
+:root[data-theme=yotsuba] #discovery{padding:0 0 32px;max-width:none;font-family:Arial,Helvetica,sans-serif}
+:root[data-theme=yotsuba] #discovery .discover-heading{margin:20px 0 24px}
+:root[data-theme=yotsuba] #discovery .discover-heading> :not(.classic-search-heading){display:none}
+:root[data-theme=yotsuba] .classic-search-heading{display:block}
+:root[data-theme=yotsuba] #discovery .classic-search-heading h1{font-size:28px;line-height:1.25;margin:0 0 10px;color:var(--theme-accent-text);font-weight:700}
+:root[data-theme=yotsuba] #discovery .classic-search-heading p{font-size:12px;line-height:1.6;margin:0;color:var(--text)}
+:root[data-theme=yotsuba] .classic-search-tools{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:8px 0;border-block:1px solid var(--border);font-size:12px}
+:root[data-theme=yotsuba] .classic-search-tools a,:root[data-theme=yotsuba] .classic-search-tools button{color:var(--theme-accent-text);text-decoration:none;background:none;border:0;padding:0;font:inherit;cursor:pointer}
+:root[data-theme=yotsuba] .classic-search-tools :is(a,button):hover{text-decoration:underline}
+:root[data-theme=yotsuba] .classic-search-tools span{margin-left:auto;font-size:11px;color:var(--text-muted)}
+:root[data-theme=yotsuba] #discovery .discover-search{max-width:640px;margin:14px auto;gap:0}
+:root[data-theme=yotsuba] #live-query{font:13px Arial,Helvetica,sans-serif;padding:7px 34px 7px 9px;height:32px;border:1px solid var(--border);background:var(--input)}
+:root[data-theme=yotsuba] .search-live-indicator{top:4px;right:10px;font-size:20px}
+:root[data-theme=yotsuba] #discovery .discover-filters{display:none;gap:12px;padding:12px;border:1px solid var(--border);background:var(--surface-raised);align-items:end}
+:root[data-theme=yotsuba] #discovery.classic-filters-open .discover-filters{display:flex}
+:root[data-theme=yotsuba] #discovery .discover-filters label{font-size:11px;gap:5px;flex:1 1 120px}
+:root[data-theme=yotsuba] #discovery .discover-filters :is(select,input,button){height:28px;font-size:12px;padding:3px 6px}
+:root[data-theme=yotsuba] #discovery .discover-summary{margin:12px 0 6px;padding:7px 0;border-block:1px solid var(--border);gap:10px;flex-wrap:wrap}
+:root[data-theme=yotsuba] #discovery .discover-summary p{font-size:12px;margin:0;font-weight:700}
+:root[data-theme=yotsuba] #discovery>.discover-note{font-size:10px;margin:6px 0;line-height:1.5}
+:root[data-theme=yotsuba] #discovery details summary{cursor:pointer;width:fit-content}
+:root[data-theme=yotsuba] #discovery .discover-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:28px 18px;margin:26px 0;align-items:start}
+:root[data-theme=yotsuba] #discovery .discover-card{display:flex;align-items:center;background:transparent;border:0;padding:0;overflow:visible;box-shadow:none!important;transform:none!important;min-width:0}
+:root[data-theme=yotsuba] #discovery .discover-preview{display:flex;align-items:center;text-align:center;overflow:visible;background:none;border:0;padding:0;width:100%;font-family:Arial,Helvetica,sans-serif}
+:root[data-theme=yotsuba] #discovery .discover-art{height:170px;width:100%;aspect-ratio:auto;display:flex;align-items:center;justify-content:center;overflow:visible;background:none;border:0;isolation:auto}
+:root[data-theme=yotsuba] #discovery .discover-art img{position:static;width:auto;height:auto;max-width:150px;max-height:170px;object-fit:contain;box-shadow:1px 2px 4px var(--shadow)}
+:root[data-theme=yotsuba] #discovery .discover-art:has(img:not([hidden])) .art-fallback{display:none}
+:root[data-theme=yotsuba] #discovery .art-fallback{display:grid;place-items:center;width:120px;height:120px;font-size:42px;color:var(--text-muted);background:var(--surface-raised);border:1px solid var(--border)}
+:root[data-theme=yotsuba] #discovery .discover-kind{display:none}
+:root[data-theme=yotsuba] #discovery .discover-card-body{width:100%;padding:6px 0 0;flex:none;overflow-wrap:anywhere}
+:root[data-theme=yotsuba] .classic-result-index{display:block;font-size:10px;color:var(--text-muted);line-height:1.5}
+:root[data-theme=yotsuba] #discovery .discover-card-body small{display:block;font-size:10px;text-transform:none;letter-spacing:0;line-height:1.5}
+:root[data-theme=yotsuba] #discovery .discover-card-body h2{font-size:13px;line-height:1.3;margin:3px 0;color:var(--theme-accent-text);letter-spacing:0}
+:root[data-theme=yotsuba] #discovery .discover-preview:hover h2{text-decoration:underline}
+:root[data-theme=yotsuba] #discovery .discover-card-body p{font-size:11px;line-height:1.4;margin:4px 0}
+:root[data-theme=yotsuba] #discovery .live-ratings{justify-content:center;gap:3px 8px;margin:5px 0;font-size:10px}
+:root[data-theme=yotsuba] #discovery .live-rating{background:none;border:0;padding:0;font-size:10px;gap:3px}
+:root[data-theme=yotsuba] #discovery .live-rating b{font-size:11px}
+:root[data-theme=yotsuba] #discovery .edition-label{background:none;border:0;padding:0;font-size:10px;margin:2px 0}
+:root[data-theme=yotsuba] #discovery .apple-badge{padding:5px 0}
+:root[data-theme=yotsuba] #discovery .apple-badge img{width:90px;max-height:30px}
+:root[data-theme=yotsuba] #discovery .discover-add{flex:none;border:0;background:none;padding:5px 0;margin:3px 0 0;color:var(--theme-accent-text);font-size:11px;min-height:28px}
+:root[data-theme=yotsuba] #discovery .discover-add:not(:disabled)::before{content:'['}
+:root[data-theme=yotsuba] #discovery .discover-add:not(:disabled)::after{content:']'}
+:root[data-theme=yotsuba] #discovery .discover-add:not(:disabled):hover{text-decoration:underline}
+:root[data-theme=yotsuba] #discovery .discover-add:disabled{opacity:1;color:var(--text-muted)}
+:root[data-theme=yotsuba] #discovery .discover-empty{border-radius:0;max-width:600px;justify-self:center;width:100%;margin:8px 0 24px;padding:22px;border:1px solid var(--border);background:var(--surface-raised);text-align:left}
+:root[data-theme=yotsuba] #discovery .discover-empty h2{font-size:14px;margin:0 0 8px}
+:root[data-theme=yotsuba] #discovery .discover-empty p{font-size:12px;opacity:1;margin:0;line-height:1.6}
+:root[data-theme=yotsuba] #live-more{display:block;margin:20px auto;font-size:12px;padding:5px 12px}
+:root[data-theme=yotsuba] #live-more[hidden]{display:none}
+@media(max-width:560px){:root[data-theme=yotsuba] #discovery .discover-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 12px}:root[data-theme=yotsuba] .classic-search-tools span{width:100%;margin:0}:root[data-theme=yotsuba] #discovery .discover-art img{max-width:100%}:root[data-theme=yotsuba] #discovery .classic-search-heading h1{font-size:24px}}
+
+/* Real request state, no invented progress percentages. */
+.search-loading[hidden]{display:none}
+.search-loading{display:flex;align-items:center;gap:10px;padding:12px 16px;margin:14px 0;border:1px solid var(--border);background:var(--surface-muted);border-radius:8px;color:var(--text-muted);font-size:12px}
+.search-loading-mark,.search-loading-cursor,.search-loading-classic{display:none}
+.search-loading-track{display:flex;gap:5px;margin-left:auto}
+.search-loading-track i{width:7px;height:7px;border-radius:50%;background:var(--accent);opacity:.3}
+:root[data-ui-motion=on] .search-loading-track i{animation:search-signal 1.2s ease-in-out infinite var(--packet-delay,0s)}
+.search-loading-track i:nth-child(2){--packet-delay:.15s}.search-loading-track i:nth-child(3){--packet-delay:.3s}.search-loading-track i:nth-child(4){--packet-delay:.45s}
+@keyframes search-signal{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+:root[data-theme=yotsuba] .search-loading{padding:7px 10px;border-radius:0;font:12px monospace;background:var(--surface-raised);color:var(--text);gap:8px}
+:root[data-theme=yotsuba] .search-loading-modern{display:none}
+:root[data-theme=yotsuba] :is(.search-loading-classic,.search-loading-mark,.search-loading-cursor){display:inline}
+:root[data-theme=yotsuba] .search-loading-mark{color:var(--theme-accent-text);font-weight:bold}
+:root[data-theme=yotsuba] .search-loading-track i{border-radius:0;width:8px;height:10px;background:var(--text-muted)}
+:root[data-ui-motion=on][data-theme=yotsuba] .search-loading-track i{animation:catalog-packet 1.2s steps(1,end) infinite var(--packet-delay,0s)}
+:root[data-ui-motion=on][data-theme=yotsuba] .search-loading-cursor{animation:catalog-cursor .8s steps(1,end) infinite}
+@keyframes catalog-packet{0%,75%,100%{opacity:.2}25%,50%{opacity:1}}
+@keyframes catalog-cursor{0%,50%{opacity:1}51%,100%{opacity:0}}
+
+:root[data-theme=yotsuba] .search-live-indicator.is-loading{visibility:hidden}

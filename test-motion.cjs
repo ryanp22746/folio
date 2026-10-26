@@ -1,0 +1,16 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const root={dataset:{motion:'system',theme:'default'}},body={},observers=new Map();
+let osChanged,animated=0,canceled=0;
+const os={matches:false,addEventListener:(name,fn)=>{osChanged=fn;}};
+const context={Set,WeakMap,Math,document:{documentElement:root,body,addEventListener(){}},matchMedia:()=>os,MutationObserver:class{constructor(fn){this.fn=fn;}observe(target){observers.set(target,this.fn);}}};
+vm.createContext(context);vm.runInContext(fs.readFileSync('dist/motion.js','utf8'),context);
+assert.equal(root.dataset.uiMotion,'on');
+const dialog={open:true,isConnected:true,getBoundingClientRect:()=>({width:500}),matches:s=>s==='dialog',animate(){animated++;return {cancel(){canceled++;this.oncancel?.();}};}};
+observers.get(body)([{type:'attributes',attributeName:'open',target:dialog}]);assert.equal(animated,1);
+root.dataset.motion='reduced';observers.get(root)();assert.equal(root.dataset.uiMotion,'off');assert.equal(canceled,1);
+observers.get(body)([{type:'attributes',attributeName:'open',target:dialog}]);assert.equal(animated,1);
+root.dataset.motion='system';os.matches=true;osChanged();assert.equal(root.dataset.uiMotion,'off');
+root.dataset.motion='subtle';observers.get(root)();assert.equal(context.FolioMotion.allowed(),false);
+root.dataset.motion='full';observers.get(root)();assert.equal(root.dataset.uiMotion,'on');
+root.dataset.motion='system';os.matches=false;osChanged();assert.equal(root.dataset.uiMotion,'on');
+console.log('Motion preferences, live OS changes, animation cancellation and disabled-state checks passed');

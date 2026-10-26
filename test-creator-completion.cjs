@@ -1,0 +1,37 @@
+const assert=require('node:assert/strict');
+const {reference,norm}=require('./dist/creators.js'),{toggle}=require('./dist/completion.js');
+assert.deepEqual(reference('https://www.igdb.com/companies/56'),{provider:'igdb',id:'56'});
+assert.deepEqual(reference('https://www.themoviedb.org/company/50908-trigger'),{provider:'tmdb_company',id:'50908'});
+assert.equal(reference('https://www.themoviedb.org/company/50908/other'),null);
+assert.deepEqual(reference('https://vndb.org/s216'),{provider:'vndb',id:'s216'});
+assert.deepEqual(reference('https://www.mangaupdates.com/author/oed06ay/maruto-fumiaki'),{provider:'mangaupdates',id:'53111145706'});
+assert.deepEqual(reference('https://www.themoviedb.org/person/12-name'),{provider:'tmdb',id:'12'});
+assert.deepEqual(reference('https://openlibrary.org/authors/OL1A/Author'),{provider:'openlibrary',id:'OL1A'});
+assert(reference('https://musicbrainz.org/artist/c0b2899c-41ab-4907-abf0-ff1962477ff2'));
+for(const url of ['https://vndb.org.evil/s216','http://vndb.org/s216','https://secret@vndb.org/s216','https://vndb.org/s216/../../x','javascript:bad','https://www.themoviedb.org/movie/1'])assert.equal(reference(url),null);
+assert.equal(norm('MARUTO Fumiaki'),norm('Fumiaki Maruto'));
+const item={id:'1',title:'Title',status:'In progress',favorite:true,rating:9,notes:'Keep this',episodeProgress:{completed:2,total:5},sessions:[{id:'session'}]};
+const completed=toggle(item);assert.equal(completed.status,'Completed');assert.equal(item.status,'In progress');
+assert.equal(completed.rating,item.rating);assert.deepEqual(completed.episodeProgress,item.episodeProgress);
+assert.deepEqual(toggle(completed),item);
+assert.equal(toggle({status:'Completed'}).status,'Want to experience');
+console.log('Creator identity parsing and reversible completion preserve personal data');
+const {studioAnchors}=require('./dist/creators.js');
+const original={id:'mal:anime:1',source:{provider:'mal',id:'1'},release_date:'2022-09-13'};
+const sequel={id:'mal:anime:2',source:{provider:'mal',id:'2'},release_date:'2027'};
+assert.deepEqual(studioAnchors(original,[sequel]),[original,sequel]);
+assert.deepEqual(studioAnchors(sequel,[original]),[original,sequel]);
+assert.deepEqual(studioAnchors(original,[]),[original]);
+assert.deepEqual(studioAnchors(original,[original]),[original]);
+assert.deepEqual(reference('https://music.apple.com/us/artist/drake/271256'),{provider:'apple',id:'271256'});
+assert.deepEqual(reference('https://music.apple.com/us/artist/271256'),{provider:'apple',id:'271256'});
+assert.equal(reference('https://music.apple.com/us/album/drake/271256'),null);
+
+assert.deepEqual(reference('https://myanimelist.net/anime/producer/803'),{provider:'mal_studio',id:'803'});
+assert.deepEqual(reference('https://open.spotify.com/artist/7tFehEdzjjoeiwUExR89qs'),{provider:'spotify',id:'7tFehEdzjjoeiwUExR89qs'});
+assert.equal(reference('https://open.spotify.com.evil/artist/7tFehEdzjjoeiwUExR89qs'),null);
+assert.equal(reference('https://myanimelist.net.evil/anime/producer/803'),null);
+
+const studioUrl='https://myanimelist.net/anime/producer/803';
+const studioRows=[{id:'same',credits:[{name:'TRIGGER',role:'Studio',url:studioUrl}]},{id:'other',credits:[{name:'Trigger',role:'Studio',url:'https://myanimelist.net/anime/producer/999'}]},{id:'unverified',credits:[{name:'Trigger',role:'Studio'}]}];
+assert.deepEqual(require('./dist/creators.js').studioWorks(studioRows,studioUrl).map(m=>m.id),['same']);

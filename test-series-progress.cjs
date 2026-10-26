@@ -1,0 +1,25 @@
+const assert=require('node:assert/strict');
+const {change,totals}=require('./dist/series-progress.js');
+const season=(n,count)=>({source:{id:`7-season-${n}`},facts:{'Season number':String(n),Episodes:String(count)}});
+const seasons=[season(1,2),season(2,1),season(0,1)];
+let state=change(null,'7-season-1',['a','b'],['a'],true);
+assert.deepEqual(totals(state,seasons),{completed:1,total:3});
+const old=structuredClone(state);
+state=change(state,'7-season-1',['a','b'],['a','b'],true);
+assert.deepEqual(old.seasons['7-season-1'].watched,['a']);
+assert.deepEqual(totals(state,seasons),{completed:2,total:3});
+state=change(state,'7-season-1',['a','b'],['b'],false);
+assert.deepEqual(totals(state,seasons),{completed:1,total:3});
+state=change(state,'7-season-0',['special'],['special'],true);
+assert.deepEqual(totals(state,seasons),{completed:1,total:3});
+state=change(state,'7-season-2',['c'],['c'],true);
+assert.deepEqual(totals(state,seasons),{completed:2,total:3});
+state=change(state,'7-season-1',['a','b'],['a','b'],false);
+assert.deepEqual(totals(state,seasons),{completed:1,total:3});
+assert.deepEqual(totals(state,[season(1,undefined)]),{completed:0,total:null});
+console.log('Series checklist: immutable saves, no double counting, season undo, specials and unknown totals passed');
+
+const {statusAfter}=require('./dist/series-progress.js');
+assert.equal(statusAfter('In progress',{completed:62,total:62}),'Completed');
+assert.equal(statusAfter('Completed',{completed:61,total:62}),'In progress');
+assert.equal(statusAfter('In progress',{completed:7,total:null}),'In progress');

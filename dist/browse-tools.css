@@ -1,0 +1,28 @@
+.browse-controls{position:sticky;top:var(--browse-top,0px);z-index:12;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:10px;margin:16px 0;box-shadow:0 5px 12px var(--shadow)}
+.browse-controls .toolbar,.browse-controls .discover-search{margin:0}
+.browse-filters{font-size:11px;margin-top:6px}.browse-filters>summary{cursor:pointer;width:fit-content;padding:6px 9px;border:1px solid var(--border);border-radius:4px;color:var(--text);background:var(--surface)}
+.browse-filter-count{color:var(--text-muted);margin-left:5px}.browse-filter-body{padding-top:8px;max-height:42vh;overflow:auto;scrollbar-width:thin}.browse-filter-body .tabs{margin:0;padding:6px 0}.browse-filter-body .facet-filters{margin:0;padding:8px 0}.browse-hint{font-size:10px;color:var(--text-muted);margin:7px 0 0;line-height:1.5}
+:root .browse-filter-body #live-filters{display:flex!important;flex-wrap:wrap;margin:0;padding:6px 0}.browse-filter-body #live-filters label{flex:1 1 125px;min-width:100px}
+.custom-layout-tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-top:8px;font-size:10px;color:var(--text-muted)}.custom-layout-tools[hidden]{display:none}.custom-layout-tools form{display:flex;gap:6px;margin:0}.custom-layout-tools input{max-width:180px;min-width:100px}
+:root .custom-layout-tools :is(button,input),:root .custom-divider input{background:var(--input);color:var(--text);border:1px solid var(--border);padding:6px 8px;font-size:11px;border-radius:4px}
+:root #grid .custom-divider{display:flex;align-items:center;gap:8px;grid-column:1/-1;border:0;border-bottom:1px solid var(--border);background:var(--surface-muted);padding:8px;margin:10px 0 2px;min-width:0}
+:root #grid .custom-divider>input{flex:1;font-weight:bold;min-width:0;background:transparent;border-color:transparent}
+:root #grid .layout-move-controls{display:flex;align-items:center;gap:3px;padding:4px;justify-content:center}
+:root #grid .layout-move-controls button,:root #grid .custom-divider>button{background:transparent;color:var(--text-muted);border:1px solid transparent;border-radius:3px;font-size:13px;min-width:28px;min-height:28px;padding:3px;position:static;transform:none}
+:root #grid .layout-move-controls button:hover,:root #grid .custom-divider>button:hover{background:var(--hover);border-color:var(--border);color:var(--text)}
+:root #grid [data-layout-action=drag]{cursor:grab;touch-action:pan-y}:root #grid [data-layout-action=drag]:active{cursor:grabbing}:root #grid .layout-move-controls button:disabled{opacity:.3;cursor:default}
+:root #grid.library-list.custom-order .library-item{padding-bottom:30px}:root #grid.library-list.custom-order .library-item>.layout-move-controls{position:absolute;bottom:0;right:8px}
+.layout-drop-end{grid-column:1/-1;text-align:center;color:var(--text-muted);font-size:10px;padding:12px;border:1px dashed var(--border)}
+:root #grid .layout-drop-target{outline:2px dashed var(--accent);outline-offset:2px}:root #grid .layout-dragging{opacity:.45}
+.browse-controls :is(button,input,select,summary):focus-visible,#grid :is([data-layout-action],[data-divider-title]):focus-visible{outline:2px solid var(--focus-ring,var(--accent));outline-offset:2px}
+:root[data-theme=yotsuba] .browse-controls{background:var(--bg);border-radius:0;box-shadow:none;border-width:1px 0;padding:7px 0}
+:root[data-theme=yotsuba] .browse-controls :is(button,input,select,summary){border-radius:0}
+:root[data-theme=yotsuba] .browse-controls .toolbar{padding:0;border:0}
+:root[data-theme=yotsuba] #grid .custom-divider{background:var(--surface-raised);border-radius:0}
+@media(max-width:650px){.browse-controls{padding:7px}.browse-controls .toolbar{gap:6px}.browse-controls .toolbar>input{flex-basis:100%;width:100%}.browse-controls .toolbar select{flex:1;min-width:100px}.browse-hint{display:none}.custom-layout-tools>span:first-child{display:none}.custom-layout-tools form{flex:1}.custom-layout-tools input{flex:1;max-width:none}.browse-filter-body{max-height:35vh}}
+
+:root :is(.library-item,.discover-card,.custom-divider){scroll-margin-top:calc(var(--browse-top,0px) + var(--browse-height,140px) + 12px)}
+
+:root:not([data-theme=yotsuba]) .search-browse-controls:has(+.search-loading:not([hidden])) #live-form:after{content:'Searching…';position:absolute;right:40px;top:100%;font-size:10px;color:var(--text-muted)}:root .search-loading:not([hidden]){display:flex;align-items:center;gap:10px;padding:10px;color:var(--text);background:var(--surface);border:1px solid var(--border)}
+
+:root:not([data-theme=yotsuba]) .search-live-indicator.is-loading{font-size:0;width:17px;height:17px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;display:block}:root[data-ui-motion=on]:not([data-theme=yotsuba]) .search-live-indicator.is-loading{animation:folio-search-spin .8s linear infinite}@keyframes folio-search-spin{to{transform:rotate(360deg)}}
