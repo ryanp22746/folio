@@ -1,0 +1,15 @@
+/* Navigation placement is independent of the Forest/Dark palette. */
+:root[data-navigation=top]:not([data-theme=yotsuba]) aside{position:sticky;inset:auto;top:0;z-index:20;display:flex;flex-direction:row;align-items:center;flex-wrap:wrap;gap:20px;width:100%;height:auto;min-height:72px;padding:12px clamp(20px,3vw,45px);border:0;border-bottom:1px solid var(--border);background:var(--surface);transform:none;opacity:1;visibility:visible;pointer-events:auto}
+:root[data-navigation=top]:not([data-theme=yotsuba]) aside>.brand{font-size:30px;line-height:1.2;margin:0 14px 0 0;flex-shrink:0}
+:root[data-navigation=top]:not([data-theme=yotsuba]) aside>small{display:none}
+:root[data-navigation=top]:not([data-theme=yotsuba]) aside nav{display:flex;flex-direction:row;align-items:center;flex-wrap:wrap;gap:6px;margin:0;width:auto}
+:root[data-navigation=top]:not([data-theme=yotsuba]) aside nav button{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:auto;min-height:40px;margin:0;padding:10px 14px;font-size:12px}
+:root[data-navigation=top]:not([data-theme=yotsuba]) aside nav button span{display:inline}
+:root[data-navigation=top]:not([data-theme=yotsuba]) aside nav button i{font-size:17px}
+:root[data-navigation=top]:not([data-theme=yotsuba]) .side-bottom{position:static;display:flex;align-items:center;gap:14px;width:auto;padding:0;margin:0 0 0 auto}
+:root[data-navigation=top]:not([data-theme=yotsuba]) .side-bottom>:is(p,small,hr){display:none}
+:root[data-navigation=top]:not([data-theme=yotsuba]) .side-bottom :is(#export,#user-settings){display:inline-flex;align-items:center;justify-content:center;gap:8px;width:auto;min-height:40px;padding:8px 10px;font-size:11px;color:var(--text-muted);border-radius:6px}
+:root[data-navigation=top]:not([data-theme=yotsuba]) #user-settings span{display:inline}
+:root[data-navigation=top]:not([data-theme=yotsuba]) #sidebar-toggle{display:none}
+:root[data-navigation=top]:not([data-theme=yotsuba]) main{margin:0 auto;max-width:1440px;padding:0 clamp(20px,3vw,45px)}
+@media(max-width:650px){:root[data-navigation=top]:not([data-theme=yotsuba]) aside{gap:8px 14px;padding:10px 16px}:root[data-navigation=top]:not([data-theme=yotsuba]) aside>.brand{font-size:27px;margin:0}:root[data-navigation=top]:not([data-theme=yotsuba]) aside nav{order:3;flex:1 1 100%;gap:6px}:root[data-navigation=top]:not([data-theme=yotsuba]) aside nav button{flex:1;padding:9px 12px}:root[data-navigation=top]:not([data-theme=yotsuba]) .side-bottom{gap:4px}:root[data-navigation=top]:not([data-theme=yotsuba]) .side-bottom :is(#export,#user-settings){font-size:10px;padding:6px}:root[data-navigation=top]:not([data-theme=yotsuba]) main{padding:0 16px}}

@@ -1,4 +1,4 @@
-const allowed = /^\/v1\/(providers|search|items\/(tmdb|vndb|anilist|mangaupdates|igdb|musicbrainz|apple)\/(movie|tv|anime|manga|game|album|track|visual_novel)\/[a-zA-Z0-9-]+)$/;
+const allowed = /^\/v1\/(providers|search|collections\/(tmdb|igdb)\/(movie|tv|game)\/[a-zA-Z0-9-]+|characters\/find|albums\/(spotify|apple|musicbrainz)\/[a-zA-Z0-9-]+\/tracks|creators\/find|creators\/(mal_studio|spotify|apple|igdb|tmdb_company|vndb|tmdb|mangaupdates|musicbrainz|openlibrary)\/[a-zA-Z0-9-]+\/works|items\/(spotify|mal|tmdb|vndb|anilist|jikan|mangaupdates|igdb|musicbrainz|apple|openlibrary)\/(movie|tv|anime|manga|game|album|track|book|visual_novel)\/[a-zA-Z0-9-]+)$/;
 module.exports = async function metadataProxy(req,res) {
   const incoming = new URL(req.url,'http://localhost');
   if (!incoming.pathname.startsWith('/api/metadata/')) return false;
@@ -14,7 +14,7 @@ module.exports = async function metadataProxy(req,res) {
     if(target.username||target.password||!['https:','http:'].includes(target.protocol))throw Error();
     if(target.protocol==='http:'&&!['127.0.0.1','localhost','[::1]'].includes(target.hostname))throw Error();
     target.pathname=route;target.search='';
-    for(const name of ['q','kind','provider','page','enrich'])if(incoming.searchParams.has(name))target.searchParams.set(name,incoming.searchParams.get(name));
+    for(const name of ['q','kind','provider','page','enrich','refresh'])if(incoming.searchParams.has(name))target.searchParams.set(name,incoming.searchParams.get(name));
     const upstream=await fetch(target,{headers:{Authorization:'Bearer '+key},redirect:'error',signal:AbortSignal.timeout(28000)});
     const reader=upstream.body.getReader();let size=0;const chunks=[];
     while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>4*1024*1024){await reader.cancel();throw Error();}chunks.push(Buffer.from(value));}

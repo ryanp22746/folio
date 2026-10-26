@@ -1,0 +1,16 @@
+/* Motion follows one app preference. Off also cancels legacy decorative effects. */
+:root[data-ui-motion=on]{--ui-duration:180ms;--ui-ease:cubic-bezier(.2,.7,.3,1)}
+:root[data-ui-motion=on][data-motion=full]{--ui-duration:280ms;--ui-ease:cubic-bezier(.2,.8,.2,1)}
+:root[data-ui-motion=on] :is(button,a,select,input,textarea){transition:background-color var(--ui-duration),border-color var(--ui-duration),color var(--ui-duration),box-shadow var(--ui-duration)}
+:root[data-ui-motion=on]:not([data-theme=yotsuba]) aside{transition:transform var(--ui-duration) var(--ui-ease),opacity var(--ui-duration),visibility var(--ui-duration)}
+:root[data-ui-motion=on]:not([data-theme=yotsuba]) .sidebar-collapsed aside{display:flex;transform:translateX(-100%);opacity:0;visibility:hidden;pointer-events:none}
+:root[data-ui-motion=on]:not([data-theme=yotsuba]) main{transition:margin-left var(--ui-duration) var(--ui-ease)}
+:root[data-ui-motion=on] #sidebar-toggle{transition:left var(--ui-duration) var(--ui-ease),top var(--ui-duration),background-color var(--ui-duration)}
+:root[data-ui-motion=on] details>summary{transition:background-color var(--ui-duration),color var(--ui-duration)}
+:root[data-ui-motion=on] select:focus-visible{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+:root[data-ui-motion=on] :is(.info-tabs [role=tab],.tabs button)[aria-selected=true]{transition:background-color var(--ui-duration),border-color var(--ui-duration)}
+:root[data-patterns=on]:not([data-theme=yotsuba]) :is(.preferences-section,.home-panel,.info-section-heading){background-image:radial-gradient(circle,var(--border) .65px,transparent .8px);background-size:16px 16px}
+:root[data-ui-motion=off] *,:root[data-ui-motion=off] *::before,:root[data-ui-motion=off] *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+:root[data-ui-motion=off] .favorite-feedback{display:none!important}
+:root[data-ui-motion=off] .search-live-indicator.is-loading{border-style:dotted;animation:none!important}
+:root[data-ui-motion=off] .media-hero-copy,:root[data-ui-motion=off] :is(.library-item,.discover-card):hover{transform:none!important}

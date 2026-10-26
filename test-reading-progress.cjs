@@ -1,0 +1,17 @@
+const assert=require('node:assert/strict');
+const {update,totals}=require('./dist/reading-progress.js');
+let state=update(null,'Chapters',20,[1,2,2,3],true,false);
+assert.deepEqual(totals(state,'Chapters'),{completed:3,total:20});
+const before=structuredClone(state);
+state=update(state,'Volumes',2,[1,2],true,true);
+assert.deepEqual(totals(state,'Volumes'),{completed:2,total:2});
+assert.deepEqual(totals(state,'Chapters'),{completed:3,total:20});
+assert.equal(state.units.Volumes.final,true);
+state=update(state,'Chapters',2,[],true,false);
+assert.deepEqual(totals(state,'Chapters'),{completed:2,total:2});
+assert.deepEqual(totals(before,'Chapters'),{completed:3,total:20});
+state=update(state,'Chapters',2,[1],false,false);
+assert.deepEqual(totals(state,'Chapters'),{completed:1,total:2});
+assert.throws(()=>update(state,'Chapters',2,[3],true,true));
+assert.throws(()=>update(state,'Pages',-1,[],true,true));
+console.log('Reading progress: independent units, deduplication, undo, changed totals, ongoing totals and validation passed');

@@ -3,7 +3,7 @@
 :root[data-theme=dark]{color-scheme:dark;--bg:#121214;--surface:#1c1c22;--surface-raised:#26262e;--surface-muted:#17171d;--input:#15151b;--border:#44444e;--text:#ececf4;--text-muted:#b0b0be;--hover:#32323d;--active:#3c3c4b;--accent:#d4d4ee;--on-accent:#24242e;--favorite:#f2adbf;--favorite-soft:#402c38;--danger:#f0b6ad;--cover-start:#51515f;--cover-end:#24242d;--cover-ink:#f4f3fc;--backdrop:#000b;--shadow:#0004;--theme-panel:var(--surface);--theme-input:var(--input);--theme-hover:var(--hover);--theme-text:var(--text);--theme-muted:var(--text-muted);--theme-border:var(--border);--theme-active:var(--active);--theme-accent-text:var(--accent);--theme-button-text:var(--on-accent)}
 :root[data-theme=yotsuba]{color-scheme:light;--bg:#ffffee;--page-wash:#fed6ae;--surface:#fff3e6;--surface-raised:#f5dec9;--surface-muted:#fff9ed;--input:#fffdf6;--border:#bd927b;--text:#492719;--text-muted:#775346;--hover:#f5d4b5;--active:#f1c7a5;--accent:#f0b98d;--on-accent:#542513;--favorite:#a82e50;--favorite-soft:#f7dce1;--danger:#9e2a24;--cover-start:#f3d1aa;--cover-end:#dcae85;--cover-ink:#562b1a;--backdrop:#49312670;--shadow:#77482c1c;--theme-panel:var(--surface);--theme-input:var(--input);--theme-hover:var(--hover);--theme-text:var(--text);--theme-muted:var(--text-muted);--theme-border:var(--border);--theme-active:var(--active);--theme-accent-text:#800000;--theme-button-text:var(--on-accent)}
 body{color:var(--text);background:var(--bg)}
-:root[data-theme=yotsuba] body{background:linear-gradient(var(--page-wash) 0,var(--bg) 220px) fixed}
+:root[data-theme=yotsuba] body{background:var(--bg)}
 :root aside{background:var(--surface);border-color:var(--border);color:var(--text)}
 :root .side-bottom,:root .side-bottom small,:root .side-bottom button,:root #export{color:var(--text-muted);opacity:1}
 :root .side-bottom button:hover{color:var(--text)}
@@ -109,3 +109,111 @@ body{color:var(--text);background:var(--bg)}
 @media(prefers-reduced-motion:reduce){:root:not([data-motion=full]) .library-live-metadata[aria-busy=true] .metadata-refresh-status:before{animation:none}}
 :root[data-motion=reduced] .library-live-metadata .metadata-refresh-status:before{animation:none}
 @media(max-width:600px){.media-hero-content{padding:20px;gap:16px;min-height:230px}.media-poster{width:80px;max-height:130px}.media-title-logo{max-height:90px}.metadata-refresh-row{flex-wrap:wrap}.library-live-metadata .live-facts{grid-template-columns:1fr}}
+
+/* Keep media headers independent of the page's breadcrumb header and logo dimensions. */
+.media-hero{display:block;height:auto;width:100%;min-height:0;margin:20px 0 24px;color:var(--text)}
+.media-hero-content{display:grid;grid-template-columns:120px minmax(0,1fr);align-items:center;gap:24px;width:100%;min-height:240px;padding:24px;box-sizing:border-box}
+.media-hero-content:not(:has(.media-poster:not([hidden]))){grid-template-columns:minmax(0,1fr)}
+.media-poster{display:block;width:120px;height:180px;max-width:100%;max-height:190px;justify-self:center;align-self:center}
+.media-hero-copy{width:100%}.media-hero-copy>small{display:block;line-height:1.6;letter-spacing:.08em}
+.media-heading{margin:12px 0;line-height:1.2}.media-hero-copy p{margin:10px 0;letter-spacing:normal}
+.media-title-logo{max-height:96px;max-width:100%;filter:drop-shadow(.5px 0 0 var(--text)) drop-shadow(-.5px 0 0 var(--text)) drop-shadow(0 .5px 0 var(--text)) drop-shadow(0 -.5px 0 var(--text))}
+#detail-content .detail-header{margin:20px 0 24px;padding:24px;min-height:240px;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+#detail-content .detail-header .detail-top{align-items:center;min-height:190px;margin:0}
+#detail-content .detail-title{padding-bottom:0}
+#detail>.close{top:10px;right:12px}
+#preferences-dialog{padding:28px;scrollbar-gutter:stable}
+#preferences-dialog>h2{margin:0 40px 24px 0}
+#preferences-dialog .preferences-section{margin:16px 0 0;padding:20px;border:1px solid var(--border);border-radius:8px}
+#preferences-dialog .preferences-section h3{margin:0 0 20px}
+#preferences-dialog .preferences-section>label{margin:0 0 20px;line-height:1.5}
+#preferences-dialog .preferences-section>label:last-child{margin-bottom:0}
+#preferences-dialog .preferences-section .muted{margin:16px 0 0}
+#preferences-dialog .preference-check{align-items:flex-start;gap:12px}
+#preferences-dialog .preference-check input{flex:0 0 16px;margin-top:2px}
+@media(max-width:600px){.media-hero-content{grid-template-columns:80px minmax(0,1fr);min-height:200px;padding:20px;gap:16px}.media-poster{width:80px;height:120px;max-height:140px}.media-title-logo{max-height:76px}#detail-content .detail-header{padding:20px;min-height:200px}#detail-content .detail-header .detail-top{min-height:140px}#preferences-dialog{padding:24px 18px}#preferences-dialog .preferences-section{padding:18px}}
+
+/* Yotsuba: flat, early-imageboard layout rather than a recolored modern skin. */
+:root[data-theme=yotsuba]{--bg:#ffffee;--surface:#ffffee;--surface-raised:#f0e0d6;--surface-muted:#f9efe5;--input:#fff;--border:#d9bfb7;--text:#800000;--text-muted:#76534c;--hover:#ead2c4;--active:#e8cdbb;--accent:#f0c0a0;--on-accent:#800000;--cover-start:#f0e0d6;--cover-end:#f0e0d6;--cover-ink:#800000;--yotsuba-link:#0000ee;--yotsuba-heading:#eeaa88;--focus-ring:#800000;--shadow:transparent}
+:root[data-theme=yotsuba] body{font-family:Arial,Helvetica,sans-serif}
+:root[data-theme=yotsuba] body,:root[data-theme=yotsuba] body *,:root[data-theme=yotsuba] body *::before,:root[data-theme=yotsuba] body *::after{background-image:none!important}
+:root[data-theme=yotsuba] :is(dialog,.discover-card,.cover,.media-hero,.media-poster,.source-score,.home-panel,.platform-link,.journal-entry,.preferences-section,.episode-form,.personal-summary span,.live-tags span,.live-source-links a,input,select,textarea,button,#item-menu,#toast){border-radius:0!important;box-shadow:none!important}
+:root[data-theme=yotsuba] dialog::backdrop,:root[data-theme=yotsuba] #live-detail::backdrop{backdrop-filter:none}
+:root[data-theme=yotsuba] aside{position:static;display:flex;flex-direction:row;align-items:center;justify-content:flex-start;flex-wrap:wrap;gap:16px;width:100%;height:auto;padding:12px 24px;border:0;border-bottom:1px solid var(--border);background:var(--surface-raised);box-sizing:border-box}
+:root[data-theme=yotsuba] aside>.brand{font-size:24px;margin:0 12px 0 0;line-height:1.2}
+:root[data-theme=yotsuba] aside>small{display:none}
+:root[data-theme=yotsuba] aside nav{display:flex;flex-direction:row;flex-wrap:wrap;gap:4px;width:auto;flex:0 1 auto;margin:0}
+:root[data-theme=yotsuba] aside nav button{display:inline-flex;flex:0 0 auto;width:auto;margin:0;align-items:center;gap:5px;padding:6px 8px;min-height:32px;background:transparent;border:0;color:var(--yotsuba-link);text-decoration:underline;font-size:13px}
+:root[data-theme=yotsuba] aside nav button:before{content:'[';color:var(--text)}
+:root[data-theme=yotsuba] aside nav button:after{content:']';color:var(--text)}
+:root[data-theme=yotsuba] aside nav button.active{font-weight:bold;color:var(--text);text-decoration:none;background:var(--active)}
+:root[data-theme=yotsuba] aside nav button span{display:inline}
+:root[data-theme=yotsuba] .side-bottom{position:static;display:flex;align-items:center;gap:14px;margin:0 0 0 auto;padding:0;border:0;width:auto}
+:root[data-theme=yotsuba] .side-bottom>:is(p,small,hr){display:none}
+:root[data-theme=yotsuba] .side-bottom>#export,:root[data-theme=yotsuba] #user-settings{display:inline-flex;width:auto;padding:6px;background:transparent;color:var(--yotsuba-link);text-decoration:underline;font-size:12px}
+:root[data-theme=yotsuba] #user-settings span{display:inline}
+:root[data-theme=yotsuba] #sidebar-toggle{display:none}
+:root[data-theme=yotsuba] main{margin:0 auto;max-width:1280px;padding:0 24px}
+:root[data-theme=yotsuba] main>header{height:48px;color:var(--text-muted)}
+:root[data-theme=yotsuba] :is(.heading h1,.discover-heading h1,.home-heading h1){font-size:32px;letter-spacing:normal;font-family:Arial,Helvetica,sans-serif}
+:root[data-theme=yotsuba] :is(.heading,.discover-heading){text-align:center;margin:24px 0}
+:root[data-theme=yotsuba] .heading{justify-content:center;gap:24px}
+:root[data-theme=yotsuba] :is(.heading h1 span,.discover-heading h1 span){color:var(--text)}
+:root[data-theme=yotsuba] :is(.tabs,#library-spaces){gap:8px;justify-content:center}
+:root[data-theme=yotsuba] :is(.tabs button,#library-spaces button){border:1px solid var(--border);padding:7px 12px;font-size:12px}
+:root[data-theme=yotsuba] :is(a:not(.brand),.back-link,.inline-link){color:var(--yotsuba-link);text-decoration:underline}
+:root[data-theme=yotsuba] :is(.discover-card,.home-panel,.source-score,.journal-entry,.preferences-section,.episode-form){background:var(--surface-raised);border:1px solid var(--border)}
+:root[data-theme=yotsuba] .discover-card:hover{transform:none;border-color:var(--text)}
+:root[data-theme=yotsuba] .cover::before,:root[data-theme=yotsuba] .cover::after,:root[data-theme=yotsuba] .detail-art svg{display:none}
+:root[data-theme=yotsuba] .cover:not(.has-custom-cover){background:var(--surface-raised)}
+:root[data-theme=yotsuba] :is(.media-hero,.detail-art){background:var(--surface-raised)}
+:root[data-theme=yotsuba] .media-hero::after,:root[data-theme=yotsuba] .detail-art::after{background:var(--surface-raised);opacity:.78}
+:root[data-theme=yotsuba] .media-backdrop{opacity:.8}
+:root[data-theme=yotsuba] :is(.live-detail-section>h3,.preferences-section>h3,.home-panel>.section-heading){background:var(--yotsuba-heading);border:1px solid var(--border);padding:8px 12px;font-weight:bold;color:var(--text)}
+:root[data-theme=yotsuba] #preferences-dialog .preferences-section h3{margin:-20px -20px 20px;border-width:0 0 1px}
+:root[data-theme=yotsuba] :is(.primary,.secondary,.favorite-control){border:1px solid var(--border);padding:9px 14px}
+:root[data-theme=yotsuba] .media-heading{letter-spacing:normal}
+:root[data-theme=yotsuba] #live-detail .live-detail-actions{box-shadow:none}
+@media(max-width:650px){:root[data-theme=yotsuba] aside{padding:10px 16px;gap:10px}:root[data-theme=yotsuba] .side-bottom{margin:0;gap:10px}:root[data-theme=yotsuba] main{padding:0 16px}:root[data-theme=yotsuba] .heading{align-items:center}:root[data-theme=yotsuba] #preferences-dialog .preferences-section h3{margin:-18px -18px 18px}:root[data-theme=yotsuba] .tabs{justify-content:flex-start}}
+
+:root #view-title>span{background:var(--surface-raised);color:var(--text-muted);border:1px solid var(--border)}
+:root[data-theme=yotsuba] #view-title>span{border-radius:0}
+
+.library-upgrade{margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.library-upgrade>p{line-height:1.7}.library-upgrade ul{padding-left:20px;font-size:12px;line-height:1.9;max-height:240px;overflow:auto;color:var(--text)}
+.library-upgrade button{margin:8px 0}.library-upgrade [role=status]{font-size:12px;color:var(--text-muted)}
+
+/* Library frames and actions share a baseline regardless of title/genre length. */
+:root .grid .library-item[data-library-id]{display:flex;flex-direction:column;padding:8px 8px 0;border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden;transition:border-color .2s}
+:root .grid .library-item[data-library-id]:is(:hover,:focus-within){transform:none;border-color:var(--text-muted);background:var(--surface)}
+:root .grid .library-item[data-library-id]>.card{flex:1;display:flex;flex-direction:column;color:var(--text)}
+:root .grid .library-item[data-library-id] .cover{width:100%;border-radius:5px}
+:root .grid .library-item[data-library-id] .card-info{width:100%;padding:0 4px;box-sizing:border-box;min-height:84px}
+:root .grid .library-item[data-library-id] h3{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.5;min-height:36px;margin:10px 0 4px}
+:root .grid .library-item[data-library-id] .meta{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.6;color:var(--text-muted)}
+:root .grid .library-item[data-library-id] .card-bottom{width:100%;box-sizing:border-box;padding:12px 4px;margin-top:auto;min-height:38px;align-items:center}
+:root .library-card-actions{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 0;border-top:1px solid var(--border);margin-top:4px}
+:root .library-card-actions :is(.favorite-toggle,.item-options){position:static;transform:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:36px;width:auto;height:36px;padding:0 9px;border:1px solid var(--border);border-radius:6px;background:var(--surface-raised);color:var(--text-muted);line-height:1}
+:root .library-card-actions .favorite-toggle>span:first-child{font-size:22px}
+:root .library-card-actions .favorite-label{font-size:11px}
+:root .library-card-actions .item-options{font-size:22px}
+:root .library-card-actions :is(.favorite-toggle,.item-options):hover{background:var(--hover);color:var(--text)}
+:root .library-card-actions .favorite-toggle[aria-pressed=true]{color:var(--favorite);background:var(--favorite-soft)}
+:root .library-card-actions button:focus-visible,:root .library-item>.card:focus-visible{outline:2px solid var(--focus-ring,var(--accent));outline-offset:2px}
+:root .library-list .library-card-actions{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;padding:0;margin:0;gap:6px}
+:root .library-list .library-card-actions .favorite-label{display:none}
+:root .library-list .library-item[data-library-id]{padding-right:94px}
+:root[data-theme=yotsuba] .grid .library-item[data-library-id]{border-radius:0;background:var(--surface-raised)}
+:root[data-theme=yotsuba] .grid .library-item[data-library-id]:is(:hover,:focus-within){background:var(--surface-raised)}
+@media(max-width:520px){:root .grid .library-item[data-library-id]{padding:5px 5px 0}:root .library-card-actions .favorite-label{font-size:10px}:root .library-card-actions :is(.favorite-toggle,.item-options){padding:0 6px}}
+
+/* One hover surface spans the whole catalog/list entry, including its actions. */
+:root[data-theme=yotsuba] #grid .library-item[data-library-id]{transition:none;transform:none;border-color:transparent;background:transparent}
+:root[data-theme=yotsuba] #grid .library-item[data-library-id]:is(:hover,:focus-within){background:var(--surface-raised);border-color:var(--border);transform:none;box-shadow:none}
+:root[data-theme=yotsuba] #grid .library-item>.card{background:transparent;transform:none;box-shadow:none}
+:root[data-theme=yotsuba] #grid .library-card-actions{background:transparent;border-color:var(--border)}
+:root[data-theme=yotsuba] #grid .library-card-actions button{border-radius:0;transform:none;box-shadow:none}
+:root[data-theme=yotsuba] #grid .library-card-actions button:hover{background:var(--hover)}
+
+:root{--spotify-brand:#1ed760}
+.service-spotify{color:var(--spotify-brand);flex-shrink:0}

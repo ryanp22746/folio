@@ -1,11 +1,11 @@
 {
   "name": "folio-media-library",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "private": true,
   "description": "A personal media library prototype for movies, shows, games, music, visual novels, and books.",
   "scripts": {
     "start": "node server.cjs",
-    "check": "node --check server.cjs && node --check metadata-proxy.cjs && node --check dist/app.js && node --check dist/metadata.js && node --check dist/identity.js && node --check dist/search-ranking.js && node --check dist/interactions.js",
-    "test": "node test-identity.cjs && node test-search.cjs && node test-proxy.cjs && node test-metadata.cjs"
+    "check": "node --check server.cjs && node --check metadata-proxy.cjs && node --check dist/app.js && node --check dist/metadata.js && node --check dist/identity.js && node --check dist/search-ranking.js && node --check dist/interactions.js && node --check dist/library-upgrade.js && node --check dist/book-genres.js && node --check dist/media-info.js && node --check dist/detail-window.js && node --check dist/detail-presentation.js && node --check dist/motion.js && node --check dist/live-search.js && node --check dist/artwork.js && node --check dist/completion.js && node --check dist/creators.js && node --check dist/browse-tools.js && node --check dist/autocomplete.js && node --check dist/profile.js && node --check dist/page-zoom.js && node --check dist/search-views.js && node --check dist/ratings.js && node --check dist/metadata-display.js && node --check dist/library-patch.js && node --check dist/presentation-options.js && node --check dist/page-session.js && node --check dist/library-shelves.js && node --check dist/library-insights.js && node --check dist/media-directory.js && node --check dist/media-access.js && node --check dist/creator-search.js && node --check dist/facets.js && node --check dist/album-tracks.js && node --check dist/associations.js && node --check dist/collections.js && node --check dist/series-progress.js && node --check dist/album-progress.js && node --check dist/collection-progress.js && node --check dist/reading-progress.js",
+    "test": "node test-identity.cjs && node test-search.cjs && node test-proxy.cjs && node test-metadata.cjs && node test-library-upgrade.cjs && node test-book-genres.cjs && node test-media-info.cjs && node test-motion.cjs && node test-live-search.cjs && node test-artwork.cjs && node test-creator-completion.cjs && node test-browse-tools.cjs && node test-autocomplete.cjs && node test-ratings-display.cjs && node test-presentation.cjs && node test-library-space.cjs && node test-facets-albums.cjs && node test-series-progress.cjs && node test-album-progress.cjs && node test-collection-progress.cjs && node test-reading-progress.cjs"
   }
 }

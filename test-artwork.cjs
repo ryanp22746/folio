@@ -1,0 +1,33 @@
+const assert=require('node:assert/strict');
+let stored='{}';global.localStorage={getItem:()=>stored,setItem:(key,value)=>stored=value};
+const art=require('./dist/artwork.js');
+const media={id:'tmdb:movie:1',image_url:'https://images.example/one.jpg',portrait_urls:['https://images.example/two.jpg','javascript:bad','https://images.example/one.jpg'],backdrop_url:'https://images.example/bg.jpg',backdrop_urls:['https://images.example/bg2.jpg']};
+assert.equal(art.gallery(media).portraits.length,2);
+assert(art.save(media.id,'portrait','https://images.example/two.jpg'));
+assert.equal(art.gallery(media).portrait,'https://images.example/two.jpg');
+assert.equal(art.gallery({id:media.id,image_url:media.image_url}).portrait,'https://images.example/two.jpg');
+assert(art.save(media.id,'background',''));assert.equal(art.gallery(media).background,'');
+assert(art.save(media.id,'background','auto'));assert.equal(art.gallery(media).background,media.backdrop_url);
+assert(!art.save(media.id,'portrait','https://name:secret@images.example/private'));
+assert(!art.save(media.id,'portrait','http://images.example/one.jpg'));
+assert(art.save(media.id,'portrait','auto'));assert.equal(art.gallery(media).portrait,media.image_url);
+const merged={...media,source_records:[{image_url:'https://images.example/third.jpg'}]};assert.equal(art.gallery(merged).portraits.length,3);
+assert.equal(art.gallery({...media,image_sexual:1}).portraits.length,0);
+const linked={...media,kind:'movie',external_ids:{tmdb:'1',imdb:'tt0000001'}};
+art.save(linked.id,'portrait','https://images.example/two.jpg',art.keys(linked));
+assert.equal(art.gallery({id:'other:movie:5',kind:'movie',external_ids:{imdb:'tt0000001'},image_url:media.image_url}).portrait,'https://images.example/two.jpg');
+art.save(linked.id,'portrait','auto',art.keys(linked));
+assert.equal(art.gallery(linked).portrait,media.image_url);
+stored='broken json';assert.equal(art.gallery(media).portrait,media.image_url);
+console.log('Artwork galleries: URL safety, deduplication, local persistence, reset and sparse search records passed');
+
+// Saved library choices survive export/import without the preference cache.
+stored='{}';
+const portable={artworkChoices:{portrait:'https://images.example/custom.jpg',background:''}};
+assert.equal(art.gallery(media,portable).portrait,portable.artworkChoices.portrait);
+assert.equal(art.gallery(media,portable).background,'');
+const upload='data:image/png;base64,aGVsbG8=';
+assert(art.save(media.id,'portrait',upload));
+assert.equal(art.gallery(media).portrait,upload);
+assert.equal(art.choices(media).portrait,upload);
+assert(!art.save(media.id,'background','javascript:alert(1)'));

@@ -1,0 +1,31 @@
+:root .search-view-controls{display:flex;gap:4px;justify-content:flex-end;margin-top:8px}
+:root .search-view-controls button{border:1px solid var(--border);background:var(--surface);color:var(--text-muted);padding:6px 10px;border-radius:5px;font-size:11px;cursor:pointer}
+:root .search-view-controls [aria-pressed=true]{background:var(--surface-raised);color:var(--text);border-color:var(--accent)}
+:root:not([data-theme=yotsuba]) #live-results[data-layout=grid] .discover-art{aspect-ratio:2/3;height:auto;min-height:0;background:var(--surface-muted)}
+:root:not([data-theme=yotsuba]) #live-results[data-layout=grid] .discover-art img{object-fit:contain;width:100%;height:100%;inset:0;padding:8px}
+:root #discovery #live-results:is([data-layout=list],[data-layout=text]){display:flex;flex-direction:column;gap:10px;align-items:stretch}
+:root #discovery #live-results:is([data-layout=list],[data-layout=text]) .discover-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;text-align:left}
+:root #discovery #live-results:is([data-layout=list],[data-layout=text]) .discover-preview{display:flex;flex-direction:row;align-items:center;gap:18px;min-width:0;text-align:left}
+:root #discovery #live-results:is([data-layout=list],[data-layout=text]) .discover-card-body{padding:0;min-width:0;width:auto;flex:1;text-align:left}
+:root #discovery #live-results:is([data-layout=list],[data-layout=text]) .discover-card-body h2{margin:5px 0;font-size:17px}
+:root #discovery #live-results:is([data-layout=list],[data-layout=text]) .discover-card-body small{font-size:10px;letter-spacing:.04em}
+:root #discovery #live-results:is([data-layout=list],[data-layout=text]) .discover-card-body p{margin:5px 0;font-size:12px}
+:root #discovery #live-results:is([data-layout=list],[data-layout=text]) .discover-art{width:76px;height:108px;aspect-ratio:auto;flex:0 0 76px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+:root #discovery #live-results:is([data-layout=list],[data-layout=text]) .discover-art img{width:100%;height:100%;max-width:100%;max-height:100%;position:static;object-fit:contain}
+:root #discovery #live-results:is([data-layout=list],[data-layout=text]) .discover-kind{display:none}
+:root #discovery #live-results:is([data-layout=list],[data-layout=text]) .live-ratings{justify-content:flex-start;gap:8px;flex-wrap:wrap;margin:6px 0 0}
+:root #discovery #live-results:is([data-layout=list],[data-layout=text]) .discover-add{margin:0;width:136px;align-self:center;border:1px solid var(--border);border-radius:5px}
+:root #discovery #live-results:is([data-layout=list],[data-layout=text]) .apple-badge{display:none}
+:root #discovery #live-results[data-layout=text] .discover-art{display:none}
+:root #discovery #live-results[data-layout=text] .discover-card{padding:12px 16px}
+:root #discovery #live-results[data-layout=text] .discover-card-body{display:grid;grid-template-columns:minmax(160px,1fr) minmax(100px,.7fr);gap:3px 16px;align-items:center}
+:root #discovery #live-results[data-layout=text] .discover-card-body h2{grid-column:1;grid-row:1;margin:0;font-size:14px}
+:root #discovery #live-results[data-layout=text] .discover-card-body>small{grid-column:2;grid-row:1}
+:root #discovery #live-results[data-layout=text] .discover-card-body>p{grid-column:1;grid-row:2;margin:0}
+:root #discovery #live-results[data-layout=text] .live-ratings{grid-column:2;grid-row:2;margin:0;font-size:10px}
+:root #discovery #live-results[data-layout=text] .classic-result-index{display:none}
+:root[data-theme=yotsuba] .search-view-controls button{border-radius:0}
+:root[data-theme=yotsuba] #discovery #live-results:is([data-layout=list],[data-layout=text]) .discover-card{border-radius:0;background:transparent;border-width:0 0 1px;padding-inline:4px}
+@media(max-width:650px){:root #discovery #live-results:is([data-layout=list],[data-layout=text]) .discover-card{grid-template-columns:minmax(0,1fr);gap:10px}:root #discovery #live-results:is([data-layout=list],[data-layout=text]) .discover-add{justify-self:end}:root #discovery #live-results[data-layout=text] .discover-card-body{display:flex;align-items:flex-start;flex-direction:column;gap:5px}}
+:root #live-results .discover-art:has(img:not([hidden])) .art-fallback{display:none}
+:root .search-media-label{display:none}:root #discovery #live-results:is([data-layout=list],[data-layout=text]) .search-media-label{display:inline}

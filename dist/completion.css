@@ -1,0 +1,20 @@
+.library-heading-actions,.library-summary-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.library-summary-actions{justify-content:flex-end}
+:root #show-completed{border:1px solid var(--border);border-radius:4px;background:var(--surface);color:var(--text);padding:7px 10px;font-size:11px}
+#completed-count{margin-left:5px;font-variant-numeric:tabular-nums}
+:root .completion-toggle{display:inline-flex;align-items:center;justify-content:center;gap:4px;background:transparent;color:var(--text-muted);border:1px solid transparent;border-radius:4px;padding:4px 7px;min-height:30px;font-size:11px;white-space:nowrap}
+:root .completion-toggle[aria-pressed=true]{color:var(--text);font-weight:600}
+:root .completion-toggle:hover{background:var(--hover);border-color:var(--border);color:var(--text)}
+:root .library-card-actions{display:flex;align-items:center;flex-wrap:nowrap;gap:4px}
+:root .library-card-actions .completion-toggle{flex:1;order:0;margin:0}
+:root .library-card-actions .favorite-label{display:none}
+:root .library-item.is-completed{border-color:var(--border)}
+:root :is(.completion-toggle,#show-completed):focus-visible{outline:2px solid var(--focus-ring,var(--accent));outline-offset:2px}
+:root #show-completed[aria-pressed=true]{background:var(--active);font-weight:bold}
+:root[data-theme=yotsuba] :is(#show-completed,.completion-toggle){border-radius:0}
+:root[data-theme=yotsuba] .completion-toggle{text-decoration:underline;min-height:28px}
+
+:root .library-list .library-item[data-library-id]{padding-right:210px}
+:root .library-list .library-card-actions .completion-toggle{min-width:90px}
+@media(max-width:650px){:root .library-list .library-item[data-library-id]{padding-right:0}:root .library-list .library-card-actions{position:static;transform:none;justify-content:flex-end;padding:0 8px 6px}:root .library-list .library-card-actions .completion-toggle{flex:0 1 auto}}
+
+:root #grid.grid .library-card-actions{display:grid;grid-template-columns:32px minmax(0,1fr) 32px;align-items:center;gap:4px;width:100%;box-sizing:border-box}:root #grid.grid .library-card-actions button{min-width:0;margin:0;padding:4px;height:32px}:root #grid.grid .completion-toggle{width:100%;justify-content:center;font-size:10px}:root #grid.grid .favorite-toggle,:root #grid.grid .item-options{width:32px;min-width:32px}:root #grid.grid .card-bottom:has(.score:empty){min-height:0;padding:4px;margin:0}

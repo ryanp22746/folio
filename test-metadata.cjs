@@ -22,11 +22,14 @@ vm.createContext(context);vm.runInContext(source.slice(source.indexOf('// Search
  const html=vm.runInContext('mediaHero(media)',context);assert(html.includes('&lt;Unsafe>'));assert(!html.includes('javascript:'));assert(html.includes('class="media-backdrop"'));
  context.media={...media,logo_url:'https://example.org/logo.png'};assert(vm.runInContext('mediaHero(media)',context).includes('media-title-logo'));assert(!vm.runInContext('mediaHero(media,entry)',context).includes('media-title-logo'));
  const classes=new Set(),logo={naturalWidth:500,complete:true,closest:()=>({classList:{add:x=>classes.add(x),remove:x=>classes.delete(x)}})},poster={};
- context.container={querySelectorAll:q=>q==='.media-title-logo'?[logo]:[poster]};vm.runInContext('bindMediaArtwork(container)',context);
+ context.container={querySelectorAll:q=>q==='[data-artwork-type]'?[]:q==='.media-title-logo'?[logo]:[poster]};vm.runInContext('bindMediaArtwork(container)',context);
  assert(classes.has('logo-ready'));logo.onerror();assert(!classes.has('logo-ready'));assert.equal(logo.hidden,true);poster.onerror();assert.equal(poster.hidden,true);
  const manual={id:'manual',title:'My name',type:'Game',rating:10,favorite:true,notes:'Personal',episodeProgress:{completed:4}};
  context.manual=manual;context.items=[manual];context.liveDialog={close(){}};context.history={replaceState(){}};context.render=()=>{};context.openOwnedDetail=()=>{};context.toast=()=>{};context.persist=()=>false;
  vm.runInContext('connectLibraryMetadata(manual,media)',context);assert.equal(manual.metadata,undefined);assert.equal(manual.rating,10);
  context.persist=()=>true;vm.runInContext('connectLibraryMetadata(manual,media)',context);assert.equal(manual.metadata,context.media);assert.equal(manual.notes,'Personal');assert.equal(manual.title,'My name');assert.equal(manual.episodeProgress.completed,4);
- console.log('Library metadata refresh, explicit connection and artwork fallback tests passed');
+ const preview={detailSeq:0,liveRecords:[{...media,search_priority:1.1,release_date:'2020',genres:['Rock']}],m:media,getDetail:async()=>({...media,search_priority:null,release_date:null,genres:[]}),liveDialog:{open:true,querySelector:()=>({}),querySelectorAll:()=>[]},detailMarkup:()=>'',bindLiveActions(){},bindMediaArtwork(){}};
+ vm.createContext(preview);const start=source.indexOf('async function showLive('),end=source.indexOf("liveEl('live-form').onsubmit",start);vm.runInContext(source.slice(start,end),preview);
+ const snapshot=JSON.stringify(preview.liveRecords);await vm.runInContext('showLive(m)',preview);assert.equal(JSON.stringify(preview.liveRecords),snapshot);
+ console.log('Library metadata refresh, explicit connection, stable music previews and artwork fallback tests passed');
 })().catch(e=>{console.error(e);process.exitCode=1;});

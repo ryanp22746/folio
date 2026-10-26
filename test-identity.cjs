@@ -22,7 +22,10 @@ const versions=identity.editions(identity.group([primary,clean]));
 assert.equal(versions.length,1);
 assert.equal(versions[0].version_options[0].id,'clean');
 assert.equal(identity.same(versions[0],clean),false);
-assert.equal(identity.editions([primary,{...clean,release_date:'2020-05-15'}]).length,2);
+const reissueOptions=identity.editions([primary,{...clean,release_date:'2020-05-15'}]);
+assert.equal(reissueOptions.length,1);
+assert.equal(reissueOptions[0].version_options[0].release_date,'2020-05-15');
+assert.equal(identity.same(primary,{...clean,release_date:'2020-05-15'}),false);
 assert.equal(identity.editions([primary,{...clean,creators:['Other artist']}]).length,2);
 
 // A transient enrichment failure keeps the last successful source summary.
@@ -33,3 +36,37 @@ assert.equal(identity.refresh(cached,{...outage,enrichment_status:[{provider:'st
 assert.throws(()=>identity.refresh(cached,{...cached,external_ids:{igdb:'2'}}),/identity changed/);
 const updated={...cached,enrichments:[{source:{provider:'steam',id:'400'},reviews:{total:200}}]};
 assert.equal(identity.refresh(cached,updated).enrichments[0].reviews.total,200);
+// Cross-catalog works merge without conflating sequels, adaptations, or conflicting IDs.
+const vn=record('vndb:visual_novel:v2002','vndb',{vndb:'v2002'},{kind:'visual_novel',title:'Steins;Gate',release_date:'2009-10-15',creators:['Nitro Plus']});
+const game=record('igdb:game:72','igdb',{igdb:'72'},{kind:'game',title:'STEINS;GATE',release_date:'2009-10-15',backdrop_url:'https://example.com/art.jpg',creators:['5pb.']});
+assert.equal(identity.group([game,vn]).length,1);
+const joined=identity.group([game,vn])[0];assert.equal(joined.kind,'visual_novel');assert.equal(joined.source_records.length,2);assert.equal(joined.backdrop_url,game.backdrop_url);
+assert.equal(identity.group([vn,{...game,title:'Steins;Gate 0'}]).length,2);
+assert.equal(identity.group([vn,{...game,release_date:'2018-01-01'}]).length,2);
+assert.equal(identity.group([vn,{...game,kind:'anime'}]).length,2);
+assert.equal(identity.group([vn,{...game,external_ids:{vndb:'v999'}}]).length,2);
+const film=record('tmdb:movie:1','tmdb',{tmdb:'movie:1'},{kind:'movie',title:'A Film',release_date:'2001-01-01',creators:['Director']});
+assert(identity.same(film,record('other','other',{other:'1'},{kind:'movie',title:'A Film',release_date:'2001',creators:['Director']})));
+assert(!identity.same(film,record('unrelated','other',{}, {kind:'movie',title:'A Film',release_date:'2001',creators:['Different director']})));
+const anime=record('mal:anime:1','mal',{myanimelist:'1'},{kind:'anime',format:'tv',title:'Series',release_date:'2011-04-01'});
+const animatedSeries=record('tmdb:tv:2','tmdb',{tmdb:'2'},{kind:'tv',title:'Series',release_date:'2011-04-01',genres:['Animation'],original_language:'ja',origin_countries:['JP']});
+assert.equal(identity.group([anime,animatedSeries]).length,1);
+assert.equal(identity.group([anime,{...animatedSeries,genres:['Drama']}]).length,2);
+assert.equal(identity.group([anime,{...animatedSeries,kind:'movie'}]).length,2);
+assert(identity.matchesKind({...animatedSeries,source_records:[anime,animatedSeries]},'tv'));
+assert(identity.matchesKind(animatedSeries,'anime'));
+assert(!identity.matchesKind({...animatedSeries,genres:['Drama']},'anime'));
+
+for(const title of ['Minions: The Rise of Gru','King of the Hill'])assert(!identity.matchesKind({...animatedSeries,title,original_language:'en',origin_countries:['US']},'anime'));
+assert(!identity.matchesKind({...animatedSeries,original_language:null,origin_countries:[]},'anime'));
+
+// Sparse search records may match two editions that enriched details distinguish.
+const sparse=record('sparse','spotify',{spotify:'sparse'},{title:'Care Package',release_date:'2019',creators:['Drake']});
+const explicit=record('explicit','apple',{apple:'explicit'},{title:'Care Package',release_date:'2019',creators:['Drake'],facts:{Edition:'Explicit'}});
+const cleanVariant=record('clean','musicbrainz',{musicbrainz:'clean'},{title:'Care Package',release_date:'2019',creators:['Drake'],facts:{Edition:'Clean'}});
+const separated=identity.group([sparse,explicit,cleanVariant]);
+assert.equal(separated.flatMap(identity.records).length,3,'Grouping must never discard conflicting editions');
+const resolved=identity.detailVersions(sparse,[{...sparse,facts:{Edition:'Explicit'}},explicit,cleanVariant]);
+assert(resolved.version_options.some(r=>r.id==='clean'));
+assert(identity.records(resolved).some(r=>r.id==='sparse'));
+assert.equal(identity.detailVersions(mb,[mb,apple]).source_records.length,2);

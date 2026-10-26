@@ -1,0 +1,27 @@
+const assert=require('node:assert/strict');
+const {reconcile,move,matches}=require('./dist/browse-tools.js');
+const rows=[{id:'a',kind:'media'},{id:'d',kind:'divider',title:'Next'},{id:'b',kind:'media'},{id:'c',kind:'media'}];
+assert.deepEqual(move(rows,'c','a').map(r=>r.id),['c','a','d','b']);
+assert.deepEqual(move(rows,'a','d',true).map(r=>r.id),['d','a','b','c']);
+assert.deepEqual(move(rows,'d',null).map(r=>r.id),['a','b','c','d']);
+assert.deepEqual(move(rows,'a','missing'),rows);
+assert.deepEqual(move(rows,'a','a'),rows);
+assert.equal(rows[0].id,'a','moves must not mutate the saved snapshot used by undo');
+const restored=reconcile(JSON.parse(JSON.stringify([...rows,rows[0],{id:'deleted',kind:'media'}])),['a','b','c','new']);
+assert.deepEqual(restored.map(r=>r.id),['a','d','b','c','new']);
+assert.equal(restored[1].title,'Next');
+assert.deepEqual(reconcile({bad:true},['a']),[{id:'a',kind:'media'}]);
+// A filtered move crosses hidden titles without deleting or independently reordering them.
+assert.deepEqual(move(rows,'c','a').filter(r=>r.id!=='c').map(r=>r.id),['a','d','b']);
+const entry={title:'Casablanca',type:'Movie',year:'1942',metadata:{alternative_titles:['Casablanca: Special Edition'],credits:[{name:'Michael Curtiz'}],genres:['Romance']}};
+assert(matches(entry,'casa blanca'));
+assert(matches(entry,'Curtiz romance 1942'));
+assert(matches({title:'Beyoncé',creator:'Artist'},'beyonce'));
+assert(!matches(entry,'Casablanca game'));
+assert(matches(entry,''));
+console.log('Custom order, divider persistence, filtered moves, safe reconciliation and hybrid library keywords passed');
+const {breadcrumbs}=require('./dist/media-access.js');
+assert.deepEqual(breadcrumbs('#library/insights').map(r=>r.href),['#home','#library','#library/insights']);
+assert.equal(breadcrumbs('#profile').at(-1).label,'Profile');
+assert.equal(breadcrumbs('#library','Weekend queue').at(-1).label,'Weekend queue');
+assert.equal(breadcrumbs('#search').at(-1).href,'#search');

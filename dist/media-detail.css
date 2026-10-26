@@ -1,0 +1,213 @@
+/* Editorial metadata tabs and regional availability use the same theme surfaces. */
+:root .cover.cover--square{aspect-ratio:1;flex:0 0 auto}
+:root .cover.cover--square .custom-cover{object-fit:contain}
+:root .detail-top .cover.cover--square{height:auto;aspect-ratio:1}
+:root .library-list .cover.cover--square{width:100%;max-width:40px;height:auto;aspect-ratio:1}
+:root .discover-art.discover-art--square{aspect-ratio:1}
+:root .discover-art--square img{object-fit:contain}
+:root .media-poster.media-poster--square{width:120px;height:120px;aspect-ratio:1;object-fit:contain}
+@media(max-width:600px){:root .media-poster.media-poster--square{width:80px;height:80px}}
+/* A shared artwork slot aligns titles while square albums retain their shape. */
+:root .grid .library-item[data-library-id] .library-art{width:100%;aspect-ratio:2/2.8;display:grid;place-items:center;background:var(--surface-muted);border-radius:5px;overflow:hidden;flex-shrink:0}
+:root .grid .library-art>.cover{width:100%;max-height:100%}
+:root .library-list .library-art{width:40px;display:grid;place-items:center}
+:root .library-text .library-art{display:none}
+:root .library-text .library-item>.card{grid-template-columns:minmax(0,1fr) 125px 180px;padding:12px 15px}
+:root .library-text .card-info h3{font-size:13px}
+:root .library-text .card-info .meta{display:none}
+@media(max-width:850px){:root .library-text .library-item>.card{grid-template-columns:minmax(0,1fr) 100px 140px;gap:10px}}
+@media(max-width:600px){:root .library-text .library-item>.card{grid-template-columns:minmax(0,1fr) 110px}:root .library-text .list-type{display:none}:root .library-list .library-art{width:35px}}
+/* Yotsuba grid is a thumbnail catalog, not a set of modern cards. */
+:root[data-theme=yotsuba] #grid.grid:not(.collection-grid){grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:30px 22px;align-items:start}
+:root[data-theme=yotsuba] #grid.grid .library-item[data-library-id]{padding:0;border:0;background:transparent;border-radius:0;overflow:visible;text-align:center}
+:root[data-theme=yotsuba] #grid.grid .library-item[data-library-id]:is(:hover,:focus-within){background:transparent;border:0}
+:root[data-theme=yotsuba] #grid.grid .library-item[data-library-id]>.card{align-items:center;text-align:center}
+:root[data-theme=yotsuba] #grid.grid .library-item[data-library-id] .library-art{height:170px;aspect-ratio:auto;max-width:190px;background:transparent;border-radius:0;overflow:visible}
+:root[data-theme=yotsuba] #grid.grid .library-item[data-library-id] .cover{width:100%;height:100%;aspect-ratio:auto;border:0;background:transparent}
+:root[data-theme=yotsuba] #grid.grid .library-item[data-library-id] .custom-cover{object-fit:contain}
+:root[data-theme=yotsuba] #grid.grid .library-item[data-library-id] .cover.has-custom-cover :is(.badge,.symbol,.cover-title,.cover-sub){display:none}
+:root[data-theme=yotsuba] #grid.grid .library-item[data-library-id] .card-info{padding:0;min-height:0}
+:root[data-theme=yotsuba] #grid.grid .library-item[data-library-id] h3{font-size:13px;font-weight:bold;line-height:1.25;min-height:0;margin:7px 0 4px;-webkit-line-clamp:3;color:var(--text)}
+:root[data-theme=yotsuba] #grid.grid .library-item[data-library-id] .meta{font-size:11px;line-height:1.35}
+:root[data-theme=yotsuba] #grid.grid .library-item[data-library-id] .library-source{font-size:10px;margin-top:4px}
+:root[data-theme=yotsuba] #grid.grid .library-item[data-library-id] .card-bottom{justify-content:center;gap:10px;padding:5px 0;min-height:0;margin:0;font-size:10px}
+:root[data-theme=yotsuba] #grid.grid .library-card-actions{justify-content:center;gap:8px;border:0;margin:0;padding:3px 0}
+:root[data-theme=yotsuba] #grid.grid .library-card-actions :is(.favorite-toggle,.item-options){border:0;background:transparent;min-width:28px;height:28px;padding:3px;color:var(--yotsuba-link)}
+:root[data-theme=yotsuba] #grid.grid .library-card-actions .favorite-label{font-size:10px;text-decoration:underline}
+@media(max-width:520px){:root[data-theme=yotsuba] #grid.grid:not(.collection-grid){grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 14px}:root[data-theme=yotsuba] #grid.grid .library-item[data-library-id] .library-art{height:150px}}
+/* Popout by default; expansion is an explicit per-window choice. */
+:root:not([data-theme=yotsuba]) :is(#detail,#live-detail):has(.media-hero){position:fixed;inset:0;width:min(1100px,calc(100% - 48px));height:min(880px,calc(100dvh - 48px));max-width:none;max-height:calc(100dvh - 48px);margin:auto;padding:0;border:1px solid var(--border);border-radius:12px;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--border) var(--surface)}
+:root:not([data-theme=yotsuba]) #detail:has(.media-hero) #detail-content,:root:not([data-theme=yotsuba]) #live-detail[open]:has(.media-hero){display:grid;grid-template-columns:minmax(20px,1fr) minmax(0,1160px) minmax(20px,1fr);grid-auto-rows:max-content;align-content:start;max-height:none;padding:0 0 40px;overflow:visible;scrollbar-gutter:auto}
+:root:not([data-theme=yotsuba]) #live-detail[open]:has(.media-hero){max-height:100dvh;overflow-y:auto;overflow-x:hidden}
+:root:not([data-theme=yotsuba]) #detail-content>*,:root:not([data-theme=yotsuba]) #live-detail:has(.media-hero)>*{grid-column:2;min-width:0}
+:root:not([data-theme=yotsuba]) :is(#detail-content,#live-detail)>.media-hero{grid-column:1/-1;width:100%;margin:0;border:0;border-radius:0;min-height:270px;background:var(--surface-muted)}
+:root:not([data-theme=yotsuba]) :is(#detail-content,#live-detail)>.media-hero--art{min-height:clamp(340px,42vw,540px)}
+:root:not([data-theme=yotsuba]) .media-hero--art .media-backdrop{opacity:1;object-position:center 35%;height:100%;width:100%}
+:root:not([data-theme=yotsuba]) .media-hero--art::after{background:linear-gradient(0deg,var(--surface) 0%,color-mix(in srgb,var(--surface) 65%,transparent) 25%,transparent 70%),linear-gradient(90deg,color-mix(in srgb,var(--surface) 85%,transparent),transparent 80%)}
+:root:not([data-theme=yotsuba]) .media-hero-content{max-width:1240px;margin:0 auto;padding:32px 40px}
+:root:not([data-theme=yotsuba]) .media-hero--art .media-hero-content{display:flex;align-items:flex-end;min-height:clamp(340px,42vw,540px);padding:100px 40px 32px}
+:root:not([data-theme=yotsuba]) .media-hero--art .media-poster{display:none}
+:root:not([data-theme=yotsuba]) .media-hero--art .media-hero-copy{max-width:75%;flex:none}
+:root:not([data-theme=yotsuba]) .media-hero .media-heading{font-size:clamp(28px,4vw,44px);margin:12px 0 14px;letter-spacing:-.03em}
+:root:not([data-theme=yotsuba]) .media-hero .media-title-logo{max-height:116px;max-width:100%;object-position:left center;filter:drop-shadow(0 0 1px var(--text)) drop-shadow(0 2px 6px var(--surface))}
+:root:not([data-theme=yotsuba]) .media-hero-copy>small{font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--text-muted)}
+:root:not([data-theme=yotsuba]) .media-hero-copy>p{font-size:13px;line-height:1.7;margin:0 0 10px}
+:root:not([data-theme=yotsuba]) #detail-content>.media-library-bar{grid-column:1/-1;width:100%;margin:0 0 24px;padding:16px max(20px,calc((100% - 1160px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-muted)}
+:root:not([data-theme=yotsuba]) .media-library-bar .popup-summary{display:contents}
+:root:not([data-theme=yotsuba]) .media-library-bar .personal-summary{flex:1 1 200px;min-width:0;margin:0;gap:8px;flex-wrap:wrap}
+:root:not([data-theme=yotsuba]) .media-library-bar .owned-actions{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;border:0;min-width:0}
+:root .media-library-bar :is(button,.personal-summary>span){min-height:36px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:11px;padding:8px 12px;margin:0;white-space:normal}
+:root:not([data-theme=yotsuba]) .media-library-bar .personal-summary>span{background:transparent;border-color:transparent;color:var(--text-muted)}
+
+:root[data-theme=yotsuba] .media-library-bar{border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:16px}
+:root[data-theme=yotsuba] .media-library-bar .owned-actions{margin-bottom:0}
+.detail-icon{display:inline-block;width:16px;height:16px;flex-shrink:0;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.media-info,.media-watch{margin:24px 0;border:1px solid var(--border);border-radius:8px;background:var(--surface);overflow:hidden}
+.info-tabs{display:flex;gap:4px;overflow-x:auto;padding:8px 12px 0;border-bottom:1px solid var(--border);background:var(--surface-muted)}
+.info-tabs [role=tab]{flex-shrink:0;padding:12px 10px;background:transparent;color:var(--text-muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border:0;border-bottom:2px solid transparent;border-radius:0}
+.info-tabs [aria-selected=true]{color:var(--text);border-bottom-color:var(--accent);font-weight:700}
+.info-tabs [role=tab]:hover{color:var(--text);background:var(--hover)}
+.info-tabs [role=tab]:focus-visible,.info-panel:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
+.info-panel{padding:20px;max-height:440px;overflow:auto;scrollbar-width:thin}
+.info-panel[hidden]{display:none}
+.info-facts{margin:0;display:grid;gap:18px}
+.info-facts>div{display:grid;grid-template-columns:minmax(100px,28%) minmax(0,1fr);gap:20px;align-items:start}
+.info-facts dt{color:var(--text-muted);font-size:11px;letter-spacing:.04em;line-height:1.7}
+.info-facts dd{margin:0;color:var(--text);font-size:13px;line-height:1.8;overflow-wrap:anywhere}
+.info-chips{display:flex;gap:7px;flex-wrap:wrap;align-items:start}
+:root .info-chip{display:inline-flex;flex-direction:column;padding:6px 10px;border:1px solid var(--border);border-radius:4px;background:var(--surface-raised);color:var(--text);font-size:12px;line-height:1.5;text-decoration:none;max-width:100%;box-sizing:border-box;overflow-wrap:anywhere}
+.info-chip small{display:block;color:var(--text-muted);font-size:11px;font-weight:400;letter-spacing:normal;line-height:1.5;margin-top:3px}
+:root :is(#detail,#live-detail) .info-chip{text-decoration:none;color:var(--text);font-weight:500;padding:8px 12px}
+:root a.info-chip:hover{background:var(--hover);text-decoration:underline}
+.info-release{display:grid;grid-template-columns:100px minmax(80px,1fr) minmax(100px,1.3fr);gap:16px;padding:12px 0;border-bottom:1px solid var(--border);font-size:12px;color:var(--text);line-height:1.7}
+.info-release:first-child{padding-top:0}.info-release:last-child{border:0;padding-bottom:0}
+.info-release time{color:var(--text-muted);font-variant-numeric:tabular-nums}
+.info-release b{font-size:10px;padding:2px 5px;border:1px solid var(--border);border-radius:3px;white-space:nowrap}
+.info-release small{display:block;color:var(--text-muted)}
+.info-empty{font-size:13px;line-height:1.8;color:var(--text-muted);margin:0}
+.media-info>.discover-note{margin:0;padding:12px 20px;border-top:1px solid var(--border)}
+.info-section-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px;background:var(--surface-raised);border-bottom:1px solid var(--border)}
+.info-section-heading h3{margin:0;font-size:13px;letter-spacing:.04em;display:flex;align-items:center;gap:9px}
+:root .watch-trailer{font-size:12px;color:var(--text);text-decoration:none;padding:5px 8px;border:1px solid var(--border);border-radius:4px}
+.watch-country{display:flex;align-items:center;gap:16px;padding:14px 20px;margin:0;font-size:12px;color:var(--text-muted)}
+.watch-country select{flex:1;min-width:0;max-width:300px;font:inherit;padding:9px}
+.watch-offers{padding:0 20px 16px}.media-watch>.watch-service-list{padding:8px 20px}
+.media-watch>.info-empty{padding:20px}
+.watch-service-list{display:flex;flex-direction:column;max-height:380px;overflow:auto;scrollbar-width:thin}
+:root .watch-service{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);color:var(--text);font-size:13px;text-decoration:none;min-width:0}
+.watch-service:last-child{border-bottom:0}.watch-service img,.watch-service .service-mark{width:32px;height:32px;object-fit:contain;border-radius:6px;flex-shrink:0;background:var(--surface-raised)}
+.watch-service .service-mark{display:grid;place-items:center;font-size:14px;font-weight:600;color:var(--text-muted);border:1px solid var(--border)}
+:root :is(#detail,#live-detail) .watch-service{text-decoration:none;color:var(--text);padding:12px 10px;gap:12px;min-height:56px;border-radius:4px}
+.watch-service-name{font-weight:500;line-height:1.5}
+.watch-service>span:first-of-type{flex:1;min-width:0;overflow-wrap:anywhere}
+:root a.watch-service:hover{color:var(--text);background:var(--hover)}
+.watch-types{display:flex;flex-wrap:wrap;gap:5px;max-width:50%;justify-content:flex-end}
+.watch-types small{font-size:10px;padding:4px 7px;background:var(--surface-raised);border:1px solid var(--border);border-radius:3px;white-space:nowrap;letter-spacing:normal;line-height:1.3;color:var(--text-muted)}
+:root :is(#detail,#live-detail) .watch-trailer{display:inline-flex;gap:7px;align-items:center;color:var(--text);text-decoration:none}
+:root :is(#detail,#live-detail) .watch-all{display:inline-flex;align-items:center;gap:7px;color:var(--text);text-decoration:none}
+:root :is(#detail,#live-detail) .availability-credit{color:var(--text);text-underline-offset:3px}
+:root .watch-all{display:inline-block;padding:10px 0;color:var(--text);font-size:12px;text-underline-offset:3px}
+.media-watch .discover-note{margin:10px 0 0;line-height:1.8}.media-watch>.discover-note{padding:0 20px 16px}
+:root[data-theme=yotsuba] :is(.media-info,.media-watch,.info-chip,.watch-service img,.watch-types small,.watch-trailer){border-radius:0}
+:root[data-theme=yotsuba] .info-tabs [aria-selected=true]{border-bottom-color:var(--text)}
+@media(max-width:520px){.info-panel{padding:16px}.info-facts>div{grid-template-columns:90px minmax(0,1fr);gap:12px}.info-release{grid-template-columns:80px minmax(0,1fr);gap:8px}.info-release>span:last-child{grid-column:2}.info-tabs{padding-left:6px;padding-right:6px}.info-tabs [role=tab]{padding:11px 8px;font-size:10px}.watch-service{gap:8px}.watch-types{max-width:45%}}
+@media(max-width:600px){:root:not([data-theme=yotsuba]) .media-hero--art .media-hero-content{padding:100px 24px 24px}:root:not([data-theme=yotsuba]) .media-hero--art .media-hero-copy{max-width:95%}:root:not([data-theme=yotsuba]) .media-library-bar .owned-actions{width:100%}.watch-offers{padding:0 12px 12px}.watch-country,.info-section-heading{padding:12px 16px}}
+:root:not([data-theme=yotsuba]) :is(.info-panel,.watch-service-list){max-height:none;overflow:visible}
+
+:root :is(#detail,#live-detail)[data-expanded=true]:has(.media-hero){position:fixed;inset:0;width:100%;height:100dvh;max-width:none;max-height:100dvh;margin:0;padding:0;border:0;border-radius:0;overflow-y:auto;overflow-x:hidden}
+:root:not([data-theme=yotsuba]) :is(#detail,#live-detail):not([data-expanded=true]) .media-hero--art,:root:not([data-theme=yotsuba]) :is(#detail,#live-detail):not([data-expanded=true]) .media-hero--art .media-hero-content{min-height:clamp(320px,44vh,420px)}
+:root #detail[data-expanded=true]:has(.media-hero) #detail-content{max-height:none;overflow:visible}
+:root :is(#detail,#live-detail)>.detail-window-controls{position:sticky;top:14px;z-index:20;height:0;grid-column:1/-1;display:flex;justify-content:flex-end;align-items:flex-start;gap:8px;padding:0 18px;pointer-events:none;overflow:visible}
+:root :is(#detail,#live-detail) .detail-window-controls>button{position:static;float:none;inset:auto;display:grid;place-items:center;width:36px;height:36px;min-width:36px;margin:0;padding:0;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);pointer-events:auto;box-shadow:0 2px 10px var(--shadow);line-height:1}
+:root :is(#detail,#live-detail) .detail-window-controls>button:hover{background:var(--hover);border-color:var(--text-muted)}
+:root :is(#detail,#live-detail) .detail-window-controls svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+:root[data-theme=yotsuba] :is(#detail,#live-detail) .detail-window-controls>button{border-radius:0;box-shadow:none}
+@media(max-width:600px){:root:not([data-theme=yotsuba]) :is(#detail,#live-detail):not([data-expanded=true]):has(.media-hero){width:calc(100% - 16px);height:calc(100dvh - 24px);max-height:calc(100dvh - 24px)}:root :is(#detail,#live-detail)>.detail-window-controls{top:10px;padding:0 12px}}
+
+/* Portrait and logo form one header, even with full-bleed background artwork. */
+:root:not([data-theme=yotsuba]) .media-hero--art .media-poster{display:block;flex:0 0 120px;align-self:flex-end}
+:root:not([data-theme=yotsuba]) .media-hero--art .media-hero-copy{flex:1;min-width:0;max-width:calc(100% - 144px)}
+:root .media-poster[hidden],:root .media-backdrop[hidden]{display:none!important}
+:root .artwork-picker{margin-top:14px;max-width:440px;font-size:11px;letter-spacing:0;color:var(--text)}
+:root .artwork-picker summary{cursor:pointer;display:list-item;width:fit-content;padding:6px 9px;border:1px solid var(--border);border-radius:4px;background:var(--surface)}
+:root .artwork-picker>div{display:flex;gap:12px;flex-wrap:wrap;padding:10px;margin-top:6px;border:1px solid var(--border);border-radius:4px;background:var(--surface)}
+:root .artwork-picker label{display:grid;gap:5px;flex:1 1 140px;margin:0;font-size:11px;color:var(--text-muted)}
+:root .artwork-picker select{width:100%;height:32px;padding:5px;font-size:11px;margin:0}
+:root .artwork-choice-status{display:block;letter-spacing:0;font-size:10px;line-height:1.5;margin-top:6px;color:var(--text-muted)}
+:root[data-theme=yotsuba] .artwork-picker :is(summary,div){border-radius:0}
+:root :is(#detail,#live-detail) .detail-window-controls>button{display:flex;align-items:center;justify-content:center;box-sizing:border-box;line-height:1;text-indent:0;letter-spacing:0}
+:root :is(#detail,#live-detail) .detail-window-controls svg{display:block;flex:none;margin:0;width:18px;height:18px;transform:none}
+@media(max-width:600px){:root:not([data-theme=yotsuba]) .media-hero--art .media-poster{flex-basis:80px;width:80px;height:120px}:root:not([data-theme=yotsuba]) .media-hero--art .media-poster--square{height:80px}:root:not([data-theme=yotsuba]) .media-hero--art .media-hero-copy{max-width:calc(100% - 96px)}:root .artwork-picker>div{padding:8px;gap:8px}}
+
+/* Compact credits retain full attribution in tooltips and expandable groups. */
+:root :is(#detail,#live-detail) .creator-chip{padding:4px 7px;font-size:11px;line-height:1.5;text-align:left;min-height:28px}
+:root .creator-chip:hover{background:var(--hover);border-color:var(--text-muted)}
+.info-facts{gap:12px}.info-facts>div{grid-template-columns:minmax(100px,20%) minmax(0,1fr);gap:16px}.info-chips{gap:5px}
+.credit-more{font-size:11px;margin-top:6px}.credit-more summary{cursor:pointer;color:var(--text-muted);padding:5px 0}.credit-more[open] summary{margin-bottom:5px}
+:root .artwork-custom[hidden]{display:none}:root .artwork-custom{display:grid;gap:7px;margin-top:6px}:root .artwork-custom input{width:100%;box-sizing:border-box;font-size:11px;padding:6px}
+:root .artwork-custom button{background:var(--surface-raised);color:var(--text);border:1px solid var(--border);padding:6px}
+:root[data-theme=yotsuba] .creator-chip{border:0;background:transparent;border-radius:0;text-decoration:underline;color:var(--yotsuba-link)}
+@media(max-width:600px){.info-facts>div{grid-template-columns:1fr;gap:4px}}
+
+:root .artwork-field{display:grid;gap:5px;flex:1 1 160px;min-width:0;color:var(--text-muted)}
+:root .artwork-picker .artwork-upload{font-size:11px;display:grid;gap:4px}
+:root[data-theme=yotsuba] #grid.grid .library-item[data-library-id]:is(:hover,:focus-within){background:var(--surface-raised);outline:1px solid var(--border)}
+:root[data-theme=yotsuba] #grid:is(.grid,.library-list) .library-item>.card:hover{background:transparent;transform:none}
+:root[data-theme=yotsuba] #grid .library-item[data-library-id]:is(:hover,:focus-within) .library-card-actions{background:transparent}
+
+.info-panel{max-height:none;overflow:visible}
+
+:root:not([data-theme=yotsuba]) .media-hero--art .media-poster{display:block;width:120px;height:174px;object-fit:contain;flex:none}:root:not([data-theme=yotsuba]) .media-hero--art .media-poster--square{height:120px}:root .media-poster{cursor:zoom-in}:root .media-backdrop{cursor:zoom-in;pointer-events:auto}:root .media-hero::after{pointer-events:none}:root .media-hero-content{pointer-events:none}:root .media-hero-content>*{pointer-events:auto}:root .media-hero-copy{min-width:0;flex:1}:root .artwork-lightbox[open]{display:grid;place-items:center;max-width:96vw;width:fit-content;max-height:96dvh;padding:30px;background:var(--surface);overflow:auto}:root .artwork-lightbox>img{max-width:88vw;max-height:86dvh;object-fit:contain}:root .artwork-lightbox::backdrop{background:var(--backdrop)}
+
+:root:not([data-theme=yotsuba]) .media-hero--cover-backdrop .media-backdrop{filter:blur(18px);opacity:.35;object-position:center;transform:scale(1.05)}
+:root .watch-service>.service-mark{flex:0 0 32px;width:32px;height:32px}:root .watch-service>.watch-service-name{flex:1;min-width:0}:root .watch-service>.detail-icon{flex:none}
+/* Detail sections retain one scroll owner and can be folded independently. */
+:root .detail-section-tools{display:flex;gap:8px;flex-wrap:wrap;padding:10px 0;margin:0 0 8px;border-bottom:1px solid var(--border)}
+:root .detail-section-tools button{background:var(--surface-raised);color:var(--text-muted);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-size:12px;cursor:pointer}
+:root .detail-fold{display:block;min-width:0;border-bottom:1px solid var(--border);margin:0;padding:0}
+:root .detail-fold>summary{padding:14px 0;cursor:pointer;color:var(--text);font-size:14px;font-weight:600}
+:root .detail-fold>summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+:root .detail-fold>section{margin-top:0;border-top:0}
+:root .detail-fold>section>h3,:root .detail-fold>section>.section-heading>h3,:root .detail-fold>section>.info-section-heading>h3{display:none}
+:root[data-theme=yotsuba] .detail-section-tools button{border-radius:0}
+/* Art fills the viewport without a framed modal or a top-right close icon. */
+:root dialog.artwork-lightbox[open]{display:flex;flex-direction:column;align-items:center;justify-content:center;position:fixed;inset:0;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:transparent;overflow:hidden;gap:12px}
+:root dialog.artwork-lightbox>img{display:block;max-width:96vw;max-height:calc(100dvh - 76px);width:auto;height:auto;object-fit:contain;border:0;border-radius:0;box-shadow:none;background:transparent}
+:root .artwork-viewer-controls{display:flex;align-items:center;gap:16px;padding:6px 16px;background:var(--surface);color:var(--text-muted);border-radius:8px;font-size:12px}
+:root .artwork-viewer-controls button{border:0;background:transparent;color:var(--text);padding:5px 10px;cursor:pointer;font-size:16px;min-width:36px}
+:root .artwork-viewer-controls button:focus-visible{outline:2px solid var(--accent)}
+:root[data-theme=yotsuba] .artwork-viewer-controls{border-radius:0}
+:root nav.detail-section-tools{flex-direction:row;align-items:center;justify-content:flex-start;width:auto}:root nav.detail-section-tools button{width:auto;flex:0 0 auto;margin:0}
+/* The artwork tray stays anchored while differently sized images load. */
+:root dialog.artwork-lightbox[open]{padding:0 0 64px;box-sizing:border-box}
+:root .artwork-viewer-controls{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);height:40px;box-sizing:border-box;white-space:nowrap}
+:root .artwork-viewer-controls>span{display:inline-block;min-width:64px;text-align:center}
+:root .artwork-viewer-controls>button{width:40px;flex:none}
+:root .artwork-viewer-controls>button:last-child{width:64px}
+:root #live-detail>.live-detail-actions{position:sticky;top:0;z-index:12;display:flex;align-items:center;gap:10px;flex-wrap:wrap;align-self:start;background:var(--surface);border-bottom:1px solid var(--border);padding:12px 100px 12px 12px;margin:0;box-shadow:0 4px 10px var(--backdrop)}
+:root .provider-admin{margin-top:16px;border-top:1px solid var(--border);padding:12px 0;color:var(--text-muted);font-size:12px}
+:root .provider-admin>summary{cursor:pointer;padding:6px 0}
+:root .page-zoom-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:16px}
+:root .page-zoom-controls button{width:auto;padding:6px 12px;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:5px;cursor:pointer}
+:root .page-zoom-controls output{font-variant-numeric:tabular-nums;min-width:44px}
+:root{--app-zoom:1}
+:root dialog:not(.artwork-lightbox){max-width:calc(100vw / var(--app-zoom) - 32px);max-height:calc(100dvh / var(--app-zoom) - 32px)}
+:root dialog.artwork-lightbox[open]{width:calc(100vw / var(--app-zoom));height:calc(100dvh / var(--app-zoom));max-width:calc(100vw / var(--app-zoom));max-height:calc(100dvh / var(--app-zoom))}
+:root dialog.artwork-lightbox>img{max-width:calc(96vw / var(--app-zoom));max-height:calc(100dvh / var(--app-zoom) - 86px)}
+:root[data-theme=yotsuba] .page-zoom-controls button{border-radius:0}
+
+:root #live-detail>.live-detail-actions{bottom:auto;border-radius:0;box-sizing:border-box}
+:root:not([data-theme=yotsuba]):not([data-navigation=top]) aside{height:calc(100dvh / var(--app-zoom))}
+:root :is(#detail,#live-detail)[data-expanded=true]:has(.media-hero){width:calc(100vw / var(--app-zoom));height:calc(100dvh / var(--app-zoom));max-height:calc(100dvh / var(--app-zoom));max-width:calc(100vw / var(--app-zoom))}
+:root:not([data-theme=yotsuba]):not([data-navigation=top]) aside{overflow-y:auto}
+:root #live-detail>.live-detail-actions{position:sticky;bottom:0;top:auto;z-index:12;padding:12px;border-top:1px solid var(--border);border-bottom:0;margin:12px 0 0;box-shadow:0 -4px 12px var(--backdrop)}
+:root .hero-creators{display:flex;gap:4px 12px;flex-wrap:wrap;margin:10px 0 16px;pointer-events:auto}
+:root .hero-creators .hero-creator{display:inline;padding:2px 0;border:0;background:transparent;color:var(--text);font:inherit;font-size:13px;text-align:left;cursor:pointer;text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px}
+:root .hero-creators .hero-creator:hover{color:var(--accent);text-decoration-color:currentColor}
+:root:not([data-theme=yotsuba]) #live-detail[open]:has(.media-hero){padding-bottom:0}:root #live-detail[open]:has(.media-hero)>.live-detail-actions{grid-column:1/-1;padding:12px 24px}
+
+/* Saved-title controls scroll with content; only the compact add action stays pinned. */
+:root #live-detail>.live-detail-actions:has(#live-open-library){position:static;box-shadow:none}
+:root #live-detail>.live-detail-actions .rating-stars button{width:25px;flex:0 0 25px}
+:root #live-detail>.live-detail-actions .rating-clear{width:auto}
+

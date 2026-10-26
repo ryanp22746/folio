@@ -7,9 +7,26 @@ async function run(){
  process.env.METADATA_API_BASE_URL='http://127.0.0.1:8000';process.env.METADATA_API_KEY='test-only-service-secret';
  global.fetch=async(url,options)=>{assert.equal(url.origin,'http://127.0.0.1:8000');assert.equal(options.headers.Authorization,'Bearer test-only-service-secret');assert.equal(options.redirect,'error');return new Response(JSON.stringify({results:[]}));};
  assert.equal((await call('/api/metadata/search?q=test')).status,200);
+ const originalFetch=global.fetch;
+ global.fetch=(url,options)=>{assert.equal(url.searchParams.get('refresh'),'true');return originalFetch(url,options);};
+ assert.equal((await call('/api/metadata/search?q=test&refresh=true')).status,200);
+ global.fetch=originalFetch;
+ assert.equal((await call('/api/metadata/items/mal/anime/42310')).status,200);
+ assert.equal((await call('/api/metadata/items/spotify/album/1234567890123456789012')).status,200);
+ assert.equal((await call('/api/metadata/creators/spotify/1234567890123456789012/works')).status,200);
+ assert.equal((await call('/api/metadata/items/jikan/anime/42310')).status,200);
+ assert.equal((await call('/api/metadata/creators/vndb/s216/works?page=2')).status,200);
+ assert.equal((await call('/api/metadata/creators/find?q=Writer')).status,200);
+ assert.equal((await call('/api/metadata/albums/spotify/1234567890123456789012/tracks?page=2')).status,200);
+ assert.equal((await call('/api/metadata/characters/find?q=Ryuuko')).status,200);
+ assert.equal((await call('/api/metadata/albums/arbitrary/123/tracks')).status,400);
+ assert.equal((await call('/api/metadata/creators/arbitrary/123/works')).status,400);
  assert.equal((await call('/api/metadata/search','POST')).status,405);
  assert.equal((await call('/api/metadata/search','GET',{'sec-fetch-site':'cross-site'})).status,403);
  assert.equal((await call('/api/metadata/evil')).status,400);
+ assert.equal((await call('/api/metadata/collections/tmdb/tv/7-season-2')).status,200);
+ assert.equal((await call('/api/metadata/items/tmdb/tv/7-season-2-episode-1')).status,200);
+ assert.equal((await call('/api/metadata/collections/arbitrary/tv/7')).status,400);
  console.log('Proxy tests passed');
 }
 run().catch(e=>{console.error(e);process.exitCode=1;});
